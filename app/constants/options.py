@@ -13,7 +13,7 @@ for season in SEASONS:
 GAME_FLOW_COLOR_OPTIONS = [
     {"label": "Point Outcome", "value": "point_outcome"},
     {"label": "Point Hold", "value": "point_hold"},
-    {"label": "O-Point", "value": "o_point"},
+    {"label": "Receiving Team", "value": "o_point"},
     {"label": "Total Turnovers", "value": "num_turnovers"},
 ]
 
