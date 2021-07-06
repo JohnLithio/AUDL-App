@@ -27,6 +27,7 @@ elem_game_flow_substitutions_color_dropdown = dbc.Col(
 )
 
 # Game selection
+# TODO: Filter this to not show games that are yet to happen
 elem_game_dropdown = dbc.Col(
     dcc.Dropdown(
         id="game-flow-game-dropdown",
@@ -61,7 +62,24 @@ elem_game_flow_substitutions_graph = dbc.Col(
             },
         ),
     ],
-    className="col-sm-12 col-md-6 col-lg-6 col-xl-12 col-12",
+    className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-12",
+)
+
+# Possession map graph
+elem_possession_map_graph = dbc.Col(
+    [
+        dcc.Graph(
+            id="possession-map-graph",
+            config={
+                "toImageButtonOptions": {
+                    "format": "png",
+                    "filename": "possession_map",
+                },
+                "displaylogo": False,
+            },
+        ),
+    ],
+    className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-12",
 )
 
 ## APP STRUCTURE
@@ -73,7 +91,7 @@ app.layout = dbc.Container(
                     label="Game Flow",
                     children=[
                         dbc.Row(
-                            [elem_game_dropdown, elem_home_away_dropdown],
+                            [elem_game_dropdown, elem_home_away_dropdown,],
                             justify="start",
                             align="start",
                         ),
@@ -83,7 +101,10 @@ app.layout = dbc.Container(
                             align="start",
                         ),
                         dbc.Row(
-                            elem_game_flow_substitutions_graph,
+                            [
+                                elem_game_flow_substitutions_graph,
+                                elem_possession_map_graph,
+                            ],
                             justify="start",
                             align="start",
                         ),
