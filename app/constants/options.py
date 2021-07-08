@@ -30,3 +30,7 @@ HOME_AWAY_OPTIONS = [
     {"label": "Away Team", "value": 0},
 ]
 
+POSSESSION_NUMBER_OPTIONS = [
+    {"label": "Possession 1", "value": 1},
+]
+

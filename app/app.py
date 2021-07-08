@@ -51,6 +51,18 @@ elem_home_away_dropdown = dbc.Col(
     )
 )
 
+# Possession number selection for possession map
+elem_possession_number_dropdown = dbc.Col(
+    dcc.Dropdown(
+        id="possession-map-number-dropdown",
+        options=POSSESSION_NUMBER_OPTIONS,
+        value=POSSESSION_NUMBER_OPTIONS[0]["value"],
+        multi=False,
+        clearable=False,
+        optionHeight=OPTION_HEIGHT,
+    )
+)
+
 # Game flow substitution graph
 elem_game_flow_substitutions_graph = dbc.Col(
     [
@@ -62,7 +74,8 @@ elem_game_flow_substitutions_graph = dbc.Col(
             },
         ),
     ],
-    className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-12",
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+    align="center",
 )
 
 # Possession map graph
@@ -79,7 +92,8 @@ elem_possession_map_graph = dbc.Col(
             },
         ),
     ],
-    className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-12",
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+    align="center",
 )
 
 ## APP STRUCTURE
@@ -91,22 +105,28 @@ app.layout = dbc.Container(
                     label="Game Flow",
                     children=[
                         dbc.Row(
-                            [elem_game_dropdown, elem_home_away_dropdown,],
-                            justify="start",
-                            align="start",
-                        ),
-                        dbc.Row(
-                            elem_game_flow_substitutions_color_dropdown,
-                            justify="start",
-                            align="start",
-                        ),
-                        dbc.Row(
                             [
-                                elem_game_flow_substitutions_graph,
-                                elem_possession_map_graph,
+                                elem_game_dropdown,
+                                elem_home_away_dropdown,
+                                elem_game_flow_substitutions_color_dropdown,
                             ],
                             justify="start",
                             align="start",
+                        ),
+                        dbc.Row(
+                            [elem_game_flow_substitutions_graph,],
+                            justify="center",
+                            align="center",
+                        ),
+                        dbc.Row(
+                            [elem_possession_number_dropdown,],
+                            justify="start",
+                            align="start",
+                        ),
+                        dbc.Row(
+                            [elem_possession_map_graph,],
+                            justify="center",
+                            align="center",
                         ),
                     ],
                 )
