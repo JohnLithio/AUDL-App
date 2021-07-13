@@ -46,11 +46,30 @@ def possession_map_number_options(clickData, game_url, home_away, options, value
         "possession_number",
     ].unique()
 
+    # Get the last play description for each possession
+    final_play_in_possession = (
+        events.loc[
+            (events["point_number"] == point)
+            & (events["offensive_possession"])
+            & (events["play_description"] != ""),
+        ]
+        .groupby(["possession_number"])
+        .tail(1)
+        .set_index("possession_number")["play_description"]
+        .str.replace("<br>", " ")
+        .to_dict()
+    )
+
     # Only change dropdown options/value if there was an offensive possession
     if len(possessions) > 0:
         options = [
-            {"label": f"Possession {i+1}", "value": possession_number}
-            for i, possession_number in enumerate(possessions)
+            {
+                "label": final_play_in_possession.get(
+                    possession_number, f"Possession {int(possession_number)}"
+                ),
+                "value": possession_number,
+            }
+            for possession_number in possessions
         ]
         value = options[0]["value"]
     else:

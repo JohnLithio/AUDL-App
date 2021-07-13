@@ -16,7 +16,7 @@ from ..server import app, dir_path
 def possession_map_graph(game_url, home_away, possession_number):
     """Update the possession map graph."""
     g = audl.Game(game_url)
-    fig = g.visual_possession_map_horizontal(
+    fig = g.visual_possession_map_vertical(
         possession_number=possession_number, home=bool(home_away)
     )
 
