@@ -27,7 +27,6 @@ elem_game_flow_substitutions_color_dropdown = dbc.Col(
 )
 
 # Game selection
-# TODO: Filter this to not show games that are yet to happen
 elem_game_dropdown = dbc.Col(
     dcc.Dropdown(
         id="game-flow-game-dropdown",
@@ -60,7 +59,23 @@ elem_possession_number_dropdown = dbc.Col(
         multi=False,
         clearable=False,
         optionHeight=OPTION_HEIGHT,
-    )
+    ),
+)
+
+# Game flow score graph
+elem_game_flow_score_graph = dbc.Col(
+    [
+        dcc.Graph(
+            id="game-flow-score-graph",
+            config={
+                "toImageButtonOptions": {"format": "png", "filename": "audl_subs",},
+                "displaylogo": False,
+                "displayModeBar": False,
+            },
+        ),
+    ],
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+    align="center",
 )
 
 # Game flow substitution graph
@@ -71,6 +86,7 @@ elem_game_flow_substitutions_graph = dbc.Col(
             config={
                 "toImageButtonOptions": {"format": "png", "filename": "audl_subs",},
                 "displaylogo": False,
+                "displayModeBar": False,
             },
         ),
     ],
@@ -89,11 +105,11 @@ elem_possession_map_graph = dbc.Col(
                     "filename": "possession_map",
                 },
                 "displaylogo": False,
+                "displayModeBar": False,
             },
         ),
     ],
     className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
-    align="center",
 )
 
 ## APP STRUCTURE
@@ -106,31 +122,58 @@ app.layout = dbc.Container(
                     children=[
                         dbc.Row(
                             [
-                                elem_game_dropdown,
-                                elem_home_away_dropdown,
-                                elem_game_flow_substitutions_color_dropdown,
-                            ],
-                            justify="start",
-                            align="start",
-                        ),
-                        dbc.Row(
-                            [elem_game_flow_substitutions_graph,],
-                            justify="center",
-                            align="center",
-                        ),
-                        dbc.Row(
-                            [elem_possession_number_dropdown,],
-                            justify="start",
-                            align="start",
-                        ),
-                        dbc.Row(
-                            [elem_possession_map_graph,],
-                            justify="center",
-                            align="center",
+                                dbc.Col(
+                                    [
+                                        dbc.Row(
+                                            [
+                                                elem_game_dropdown,
+                                                elem_home_away_dropdown,
+                                                elem_game_flow_substitutions_color_dropdown,
+                                            ],
+                                            justify="center",
+                                            align="center",
+                                            style={"padding": "10px 0px 10px 0px"},
+                                        ),
+                                        dbc.Row(
+                                            [elem_game_flow_score_graph,],
+                                            justify="center",
+                                            align="center",
+                                            style={
+                                                "margin-bottom": 0,
+                                                "padding-bottom": 0,
+                                            },
+                                        ),
+                                        dbc.Row(
+                                            [elem_game_flow_substitutions_graph,],
+                                            justify="center",
+                                            align="center",
+                                            style={"margin-top": 0, "padding-top": 0},
+                                        ),
+                                    ],
+                                    className="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-12",
+                                ),
+                                dbc.Col(
+                                    [
+                                        dbc.Row(
+                                            [elem_possession_number_dropdown,],
+                                            align="center",
+                                            justify="center",
+                                            style={"padding": "10px 0px 10px 0px"},
+                                        ),
+                                        dbc.Row(
+                                            [elem_possession_map_graph,],
+                                            justify="center",
+                                            align="center",
+                                        ),
+                                    ],
+                                    className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
+                                ),
+                            ]
                         ),
                     ],
                 )
             ]
         )
-    ]
+    ],
+    fluid=True,
 )
