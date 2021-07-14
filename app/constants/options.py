@@ -12,9 +12,9 @@ for season in SEASONS:
     games_dict[season] = audl.Season(year=season).get_game_info(override=False)
 
 GAME_FLOW_COLOR_OPTIONS = [
+    {"label": "Receiving Team", "value": "o_point"},
     {"label": "Point Outcome", "value": "point_outcome"},
     {"label": "Point Hold", "value": "point_hold"},
-    {"label": "Receiving Team", "value": "o_point"},
     {"label": "Total Turnovers", "value": "num_turnovers"},
 ]
 
@@ -37,3 +37,8 @@ POSSESSION_NUMBER_OPTIONS = [
     {"label": "Possession 1", "value": 1},
 ]
 
+HEATMAP_OPOINT_OPTIONS = [
+    {"label": "All Points", "value": "all"},
+    {"label": "O-Points", "value": True},
+    {"label": "D-Points", "value": False},
+]

@@ -10,6 +10,7 @@ from dash_table import DataTable
 from .server import app
 from .constants import *
 from .game_flow import *
+from .heatmap import *
 
 app.title = APP_NAME
 
@@ -62,6 +63,19 @@ elem_possession_number_dropdown = dbc.Col(
     ),
 )
 
+# O-point dropdown selection for heatmap
+elem_heatmap_opoint_dropdown = dbc.Col(
+    dcc.Dropdown(
+        id="heatmap-opoint-dropdown",
+        options=HEATMAP_OPOINT_OPTIONS,
+        value=HEATMAP_OPOINT_OPTIONS[0]["value"],
+        multi=False,
+        clearable=False,
+        optionHeight=OPTION_HEIGHT,
+    ),
+    className="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-12",
+)
+
 # Game flow score graph
 elem_game_flow_score_graph = dbc.Col(
     [
@@ -110,6 +124,30 @@ elem_possession_map_graph = dbc.Col(
         ),
     ],
     className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+)
+
+# First heatmap graph
+elem_heatmap_first_graph = dbc.Col(
+    [
+        dcc.Graph(
+            id="heatmap-first-graph",
+            config={"displaylogo": False, "displayModeBar": False,},
+            style={"aspect-ratio": "1 / 2", "max-height": "800px"},
+        ),
+    ],
+    className="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-12",
+)
+
+# Second heatmap graph
+elem_heatmap_second_graph = dbc.Col(
+    [
+        dcc.Graph(
+            id="heatmap-second-graph",
+            config={"displaylogo": False, "displayModeBar": False,},
+            style={"aspect-ratio": "1 / 2", "max-height": "800px"},
+        ),
+    ],
+    className="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-12",
 )
 
 ## APP STRUCTURE
@@ -171,7 +209,24 @@ app.layout = dbc.Container(
                             ]
                         ),
                     ],
-                )
+                ),
+                dbc.Tab(
+                    label="Heat Maps",
+                    children=[
+                        dbc.Row(
+                            [
+                                elem_heatmap_opoint_dropdown,
+                                elem_heatmap_first_graph,
+                                elem_heatmap_second_graph,
+                            ],
+                            style={
+                                "padding": "0px 0px 0px 0px",
+                                "margin": "0px 0px 0px 0px",
+                            },
+                            align="start",
+                        ),
+                    ],
+                ),
             ]
         )
     ],
