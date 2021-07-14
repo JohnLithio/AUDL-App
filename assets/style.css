@@ -267,13 +267,20 @@
   
   /* Links
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
-  /* a {
-    color: #1EAEDB; 
-    text-decoration: underline;
-    cursor: pointer;}
+  a {
+    color: rgba(0, 51, 102); 
+    /* text-decoration: underline; */
+    /* cursor: pointer; */
+  }
   a:hover {
-    color: #0FA0CE; } */
+    color: rgba(0, 51, 102); }
   
+  
+  /* Ratios
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+  /* .ratio {
+    --bs-aspect-ratio: 50%; //2x1
+  } */
   
   /* Buttons
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
