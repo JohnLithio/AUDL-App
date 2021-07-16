@@ -122,7 +122,7 @@ def heatmap_description(
                 f"{outcome_str.title()} {metric_str.title()}",
                 style={"text-align": "center"},
             ),
-            f" Based on location of {throw_str1.lower()}",
+            f"Based on location of {throw_str1.lower()}",
             html.Br(),
             f"{o_point_str} with {teams_str} on {team_radio_str}. Showing {yards_str}.",
             html.Br(),
@@ -133,10 +133,10 @@ def heatmap_description(
     else:
         description = [
             html.H2(
-                f"{throw_str1.title()[:-1]} {metric_str.title()}",
+                f"{outcome_str.title()} {metric_str.title()}",
                 style={"text-align": "center"},
             ),
-            f"Based on possessions ending in a {outcome_str.lower()}",
+            f"Based on possessions ending in a {outcome_str.lower()} and location of {throw_str1.lower()}",
             html.Br(),
             f"{o_point_str} with {teams_str} on {team_radio_str}. Showing {yards_str}.",
             html.Br(),
