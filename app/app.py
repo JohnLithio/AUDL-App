@@ -10,20 +10,21 @@ import numpy as np
 from dash_table import DataTable
 from .server import app
 from .constants import *
-from .game_flow import *
-from .heatmap import *
+
+# from .game_flow import *
+# from .heatmap import *
 
 app.title = APP_NAME
 
 ### GAME FLOW
 ## GAME FLOW TOOLTIPS
-elem_game_tooltip = dbc.Tooltip(
-    GAME_TOOLTIP,
-    innerClassName="tooltip-custom",
-    target="game-flow-game-label",
-    placement="top-start",
-    hide_arrow=True,
-)
+# elem_game_tooltip = dbc.Tooltip(
+#     GAME_TOOLTIP,
+#     innerClassName="tooltip-custom",
+#     target="game-flow-game-label",
+#     placement="top-start",
+#     hide_arrow=True,
+# )
 
 elem_home_away_tooltip = dbc.Tooltip(
     HOME_AWAY_TOOLTIP,
@@ -33,13 +34,13 @@ elem_home_away_tooltip = dbc.Tooltip(
     hide_arrow=True,
 )
 
-elem_substitutions_color_tooltip = dbc.Tooltip(
-    SUBSTITUTIONS_COLOR_TOOLTIP,
-    innerClassName="tooltip-custom",
-    target="game-flow-substitutions-color-label",
-    placement="top-start",
-    hide_arrow=True,
-)
+# elem_substitutions_color_tooltip = dbc.Tooltip(
+#     SUBSTITUTIONS_COLOR_TOOLTIP,
+#     innerClassName="tooltip-custom",
+#     target="game-flow-substitutions-color-label",
+#     placement="top-start",
+#     hide_arrow=True,
+# )
 
 elem_possession_number_tooltip = dbc.Tooltip(
     POSSESSION_NUMBER_TOOLTIP,
@@ -52,20 +53,20 @@ elem_possession_number_tooltip = dbc.Tooltip(
 
 ## GAME FLOW ELEMENTS
 # Game selection
-elem_game_dropdown = dbc.Col(
-    [
-        html.Label("Game", id="game-flow-game-label"),
-        dcc.Dropdown(
-            id="game-flow-game-dropdown",
-            options=GAME_OPTIONS,
-            value=GAME_OPTIONS[0]["value"],
-            multi=False,
-            clearable=False,
-            optionHeight=OPTION_HEIGHT,
-        ),
-    ],
-    className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
-)
+# elem_game_dropdown = dbc.Col(
+#     [
+#         html.Label("Game", id="game-flow-game-label"),
+#         dcc.Dropdown(
+#             id="game-flow-game-dropdown",
+#             options=GAME_OPTIONS,
+#             value=GAME_OPTIONS[0]["value"],
+#             multi=False,
+#             clearable=False,
+#             optionHeight=OPTION_HEIGHT,
+#         ),
+#     ],
+#     className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
+# )
 
 # Home/Away selection
 elem_home_away_dropdown = dbc.Col(
@@ -84,20 +85,20 @@ elem_home_away_dropdown = dbc.Col(
 )
 
 # Game flow substitutions graph color selection
-elem_game_flow_substitutions_color_dropdown = dbc.Col(
-    [
-        html.Label("Color", id="game-flow-substitutions-color-label"),
-        dcc.Dropdown(
-            id="game-flow-substitutions-color-dropdown",
-            options=GAME_FLOW_COLOR_OPTIONS,
-            value=GAME_FLOW_COLOR_OPTIONS[0]["value"],
-            multi=False,
-            clearable=False,
-            optionHeight=OPTION_HEIGHT,
-        ),
-    ],
-    className="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-12",
-)
+# elem_game_flow_substitutions_color_dropdown = dbc.Col(
+#     [
+#         html.Label("Color", id="game-flow-substitutions-color-label"),
+#         dcc.Dropdown(
+#             id="game-flow-substitutions-color-dropdown",
+#             options=GAME_FLOW_COLOR_OPTIONS,
+#             value=GAME_FLOW_COLOR_OPTIONS[0]["value"],
+#             multi=False,
+#             clearable=False,
+#             optionHeight=OPTION_HEIGHT,
+#         ),
+#     ],
+#     className="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-12",
+# )
 
 # Possession number selection for possession map
 elem_possession_number_dropdown = dbc.Col(
@@ -223,21 +224,21 @@ elem_heatmap_opoint_tooltip = dbc.Tooltip(
     hide_arrow=True,
 )
 
-elem_heatmap_team_tooltip = dbc.Tooltip(
-    TEAM_TOOLTIP,
-    innerClassName="tooltip-custom",
-    target="heatmap-team-label",
-    placement="top-start",
-    hide_arrow=True,
-)
+# elem_heatmap_team_tooltip = dbc.Tooltip(
+#     TEAM_TOOLTIP,
+#     innerClassName="tooltip-custom",
+#     target="heatmap-team-label",
+#     placement="top-start",
+#     hide_arrow=True,
+# )
 
-elem_heatmap_player_tooltip = dbc.Tooltip(
-    PLAYER_TOOLTIP,
-    innerClassName="tooltip-custom",
-    target="heatmap-player-label",
-    placement="top-start",
-    hide_arrow=True,
-)
+# elem_heatmap_player_tooltip = dbc.Tooltip(
+#     PLAYER_TOOLTIP,
+#     innerClassName="tooltip-custom",
+#     target="heatmap-player-label",
+#     placement="top-start",
+#     hide_arrow=True,
+# )
 
 elem_heatmap_yards_tooltip = dbc.Tooltip(
     YARDS_TOOLTIP,
@@ -361,21 +362,21 @@ elem_heatmap_opoint_dropdown = dbc.Col(
 elem_empty = dbc.Col(className="col-xl-4 col-0",)
 
 # Team dropdown selection for heatmap
-elem_heatmap_team_dropdown = dbc.Col(
-    [
-        html.Label("Teams", id="heatmap-team-label"),
-        dcc.Dropdown(
-            id="heatmap-team-dropdown",
-            options=HEATMAP_TEAM_OPTIONS,
-            value=[],
-            multi=True,
-            clearable=True,
-            optionHeight=OPTION_HEIGHT,
-        ),
-    ],
-    style={"margin": "20px 0px 0px 0px"},
-    className="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-12",
-)
+# elem_heatmap_team_dropdown = dbc.Col(
+#     [
+#         html.Label("Teams", id="heatmap-team-label"),
+#         dcc.Dropdown(
+#             id="heatmap-team-dropdown",
+#             options=HEATMAP_TEAM_OPTIONS,
+#             value=[],
+#             multi=True,
+#             clearable=True,
+#             optionHeight=OPTION_HEIGHT,
+#         ),
+#     ],
+#     style={"margin": "20px 0px 0px 0px"},
+#     className="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-12",
+# )
 
 # Selection for offense or defensive team
 elem_heatmap_team_radio = dbc.Col(
@@ -395,21 +396,21 @@ elem_heatmap_team_radio = dbc.Col(
 )
 
 # Player dropdown selection for heatmap
-elem_heatmap_player_dropdown = dbc.Col(
-    [
-        html.Label("Players", id="heatmap-player-label"),
-        dcc.Dropdown(
-            id="heatmap-player-dropdown",
-            options=HEATMAP_PLAYER_OPTIONS,
-            value=[],
-            multi=True,
-            clearable=True,
-            optionHeight=OPTION_HEIGHT,
-        ),
-    ],
-    style={"margin": "20px 0px 0px 0px"},
-    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
-)
+# elem_heatmap_player_dropdown = dbc.Col(
+#     [
+#         html.Label("Players", id="heatmap-player-label"),
+#         dcc.Dropdown(
+#             id="heatmap-player-dropdown",
+#             options=HEATMAP_PLAYER_OPTIONS,
+#             value=[],
+#             multi=True,
+#             clearable=True,
+#             optionHeight=OPTION_HEIGHT,
+#         ),
+#     ],
+#     style={"margin": "20px 0px 0px 0px"},
+#     className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+# )
 
 # Min and max yards label
 elem_heatmap_yards_slider_label = dbc.Col(
@@ -544,13 +545,13 @@ app.layout = dbc.Container(
                                     [
                                         dbc.Row(
                                             [
-                                                elem_game_dropdown,
+                                                # elem_game_dropdown,
                                                 elem_home_away_dropdown,
-                                                elem_game_flow_substitutions_color_dropdown,
+                                                # elem_game_flow_substitutions_color_dropdown,
                                                 # Tooltips
-                                                elem_game_tooltip,
+                                                # elem_game_tooltip,
                                                 elem_home_away_tooltip,
-                                                elem_substitutions_color_tooltip,
+                                                # elem_substitutions_color_tooltip,
                                             ],
                                             justify="center",
                                             align="center",
@@ -611,9 +612,9 @@ app.layout = dbc.Container(
                                             elem_heatmap_metric_dropdown,
                                             elem_heatmap_throw_dropdown,
                                             elem_heatmap_opoint_dropdown,
-                                            elem_heatmap_team_dropdown,
+                                            # elem_heatmap_team_dropdown,
                                             elem_heatmap_team_radio,
-                                            elem_heatmap_player_dropdown,
+                                            # elem_heatmap_player_dropdown,
                                             elem_heatmap_yards_slider_label,
                                             elem_heatmap_yards_slider,
                                             elem_heatmap_xyards_slider_label,
@@ -631,8 +632,8 @@ app.layout = dbc.Container(
                                             elem_heatmap_metric_tooltip,
                                             elem_heatmap_throw_tooltip,
                                             elem_heatmap_opoint_tooltip,
-                                            elem_heatmap_team_tooltip,
-                                            elem_heatmap_player_tooltip,
+                                            # elem_heatmap_team_tooltip,
+                                            # elem_heatmap_player_tooltip,
                                             elem_heatmap_yards_tooltip,
                                             elem_heatmap_yyards_tooltip,
                                             elem_heatmap_xyards_tooltip,
