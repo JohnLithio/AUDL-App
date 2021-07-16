@@ -60,7 +60,7 @@ def possession_map_number_options(clickData, game_url, home_away, options, value
         .to_dict()
     )
 
-    # Only change dropdown options/value if there was an offensive possession
+    # Get all possessions
     if len(possessions) > 0:
         options = [
             {
@@ -72,8 +72,8 @@ def possession_map_number_options(clickData, game_url, home_away, options, value
             for possession_number in possessions
         ]
         value = options[0]["value"]
+    # If no possessions, return message and blank map
     else:
-        # TODO: Pop-up message about there being no o-possessions on this point
-        pass
+        return [{"label": "No offensive possessions on this point", "value": -1}], -1
 
     return (options, value)
