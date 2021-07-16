@@ -2,6 +2,8 @@ import webbrowser
 from threading import Timer
 from app.app import app
 
+server = app.server
+
 
 def open_browser():
     """Open the default broswer to the app's web address."""

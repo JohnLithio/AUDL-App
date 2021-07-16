@@ -13,7 +13,6 @@ from .constants import *
 from .game_flow import *
 from .heatmap import *
 
-server = app.server
 app.title = APP_NAME
 
 ### GAME FLOW
