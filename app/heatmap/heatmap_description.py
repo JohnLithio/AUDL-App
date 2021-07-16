@@ -133,7 +133,7 @@ def heatmap_description(
     else:
         description = [
             html.H2(
-                f"{metric_str.title() of Touches Leading to a {outcome_str.title()} }",
+                f"{metric_str.title()} of Touches Leading to a {outcome_str.title()}",
                 style={"text-align": "center"},
             ),
             f"Based on possessions ending in a {outcome_str.lower()} and location of {throw_str1.lower()}",
