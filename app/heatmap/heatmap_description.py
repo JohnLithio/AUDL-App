@@ -116,21 +116,33 @@ def heatmap_description(
         else:
             throw_str2 = f"The second heat map is currently showing throws. Click anywhere on the first map to show only throws that ended in that area."
 
-    # {Score/Completion/Turnover} {Percentage/Frequency/Avg Yards}
-    # Based on {possession/throw} outcome and location of {throws/receptions}
-    # {All Points/O-Points/D-Points} for {teams/all teams} on {offense/defense}
-    # {All throws/Throws x-x yards}
-    # {All Players}
-
-    description = [
-        html.H2(
-            f"{outcome_str} {metric_str} based on {outcome_measure_str} outcome and location of {throw_str1.lower()}"
-        ),
-        f"{o_point_str} with {teams_str} on {team_radio_str}. Showing {yards_str}.",
-        html.Br(),
-        f"Players: {players_str}",
-        html.Br(),
-        throw_str2,
-    ]
+    if outcome_measure == "throw_outcome":
+        description = [
+            html.H2(
+                f"{outcome_str.title()} {metric_str.title()}",
+                style={"text-align": "center"},
+            ),
+            f" Based on location of {throw_str1.lower()}",
+            html.Br(),
+            f"{o_point_str} with {teams_str} on {team_radio_str}. Showing {yards_str}.",
+            html.Br(),
+            f"Players: {players_str}",
+            html.Br(),
+            throw_str2,
+        ]
+    else:
+        description = [
+            html.H2(
+                f"{throw_str1.title()[:-1]} {metric_str.title()}",
+                style={"text-align": "center"},
+            ),
+            f"Based on possessions ending in a {outcome_str.lower()}",
+            html.Br(),
+            f"{o_point_str} with {teams_str} on {team_radio_str}. Showing {yards_str}.",
+            html.Br(),
+            f"Players: {players_str}",
+            html.Br(),
+            throw_str2,
+        ]
 
     return description
