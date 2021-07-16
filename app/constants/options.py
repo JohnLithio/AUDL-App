@@ -42,3 +42,36 @@ HEATMAP_OPOINT_OPTIONS = [
     {"label": "O-Points", "value": True},
     {"label": "D-Points", "value": False},
 ]
+
+HEATMAP_METRIC_OPTIONS = [
+    {"label": "Num. of Completions", "value": "count"},
+    {"label": "Completion Pct", "value": "pct"},
+    {"label": "Yards", "value": "yards_raw"},
+    {"label": "Downfield Yards", "value": "yyards_raw"},
+    {"label": "Sideways Yards", "value": "xyards"},
+]
+
+HEATMAP_OUTCOME_MEASURE_OPTIONS = [
+    {"label": "Throw Outcome", "value": "throw_outcome"},
+    {"label": "Possession Outcome", "value": "possession_outcome_general"},
+]
+
+HEATMAP_OUTCOME_OPTIONS = [
+    {"label": "Completion", "value": "Completion"},
+    {"label": "Turnover", "value": "Turnover"},
+]
+
+HEATMAP_THROW_OPTIONS = [
+    {"label": "Thrower", "value": True},
+    {"label": "Receiver", "value": False},
+]
+
+HEATMAP_TEAM_OPTIONS = [
+    {"label": row["team_name"], "value": row["team_id"]}
+    for i, row in audl.Season().get_teams().iterrows()
+]
+
+HEATMAP_PLAYER_OPTIONS = [
+    {"label": row["player_name"], "value": row["player_id"]}
+    for i, row in audl.Season().get_players().iterrows()
+]
