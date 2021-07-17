@@ -14,7 +14,7 @@ from .server import app
 # from .game_flow import *
 # from .heatmap import *
 
-app.title = APP_NAME
+# app.title = APP_NAME
 
 ### GAME FLOW
 ## GAME FLOW TOOLTIPS
