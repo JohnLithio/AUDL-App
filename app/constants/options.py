@@ -6,27 +6,27 @@ SEASONS = [
     2021,
 ]
 
-# # Get all seasons of games
-# games_dict = dict()
-# for season in SEASONS:
-#     games_dict[season] = audl.Season(year=season).get_game_info(override=False)
+# Get all seasons of games
+games_dict = dict()
+for season in SEASONS:
+    games_dict[season] = audl.Season(year=season).get_game_info(override=False)
 
-# GAME_FLOW_COLOR_OPTIONS = [
-#     {"label": "Receiving Team", "value": "o_point"},
-#     {"label": "Point Outcome", "value": "point_outcome"},
-#     {"label": "Point Hold", "value": "point_hold"},
-#     {"label": "Total Turnovers", "value": "num_turnovers"},
-# ]
+GAME_FLOW_COLOR_OPTIONS = [
+    {"label": "Receiving Team", "value": "o_point"},
+    {"label": "Point Outcome", "value": "point_outcome"},
+    {"label": "Point Hold", "value": "point_hold"},
+    {"label": "Total Turnovers", "value": "num_turnovers"},
+]
 
-# GAME_OPTIONS = [
-#     {
-#         "label": f"{row['away_team']} at {row['home_team']}, {row['game_date']}",
-#         "value": row["url"],
-#     }
-#     for _, row in games_dict[SEASONS[-1]].iterrows()
-#     if (datetime.strptime(row["game_date"], "%Y-%m-%d") + timedelta(days=1))
-#     < datetime.now()
-# ]
+GAME_OPTIONS = [
+    {
+        "label": f"{row['away_team']} at {row['home_team']}, {row['game_date']}",
+        "value": row["url"],
+    }
+    for _, row in games_dict[SEASONS[-1]].iterrows()
+    if (datetime.strptime(row["game_date"], "%Y-%m-%d") + timedelta(days=1))
+    < datetime.now()
+]
 
 HOME_AWAY_OPTIONS = [
     {"label": "Home Team", "value": 1},
@@ -66,15 +66,15 @@ HEATMAP_THROW_OPTIONS = [
     {"label": "Receiver", "value": False},
 ]
 
-# HEATMAP_TEAM_OPTIONS = [
-#     {"label": row["team_name"], "value": row["team_id"]}
-#     for i, row in audl.Season().get_teams().iterrows()
-# ]
+HEATMAP_TEAM_OPTIONS = [
+    {"label": row["team_name"], "value": row["team_id"]}
+    for i, row in audl.Season().get_teams().iterrows()
+]
 
-# HEATMAP_PLAYER_OPTIONS = [
-#     {"label": row["player_name"], "value": row["player_id"]}
-#     for i, row in audl.Season().get_players().iterrows()
-# ]
+HEATMAP_PLAYER_OPTIONS = [
+    {"label": row["player_name"], "value": row["player_id"]}
+    for i, row in audl.Season().get_players().iterrows()
+]
 
 HEATMAP_YYARDS_MARKS = {
     -120: "120",
