@@ -574,95 +574,95 @@ app.layout = dbc.Container(
                                     ],
                                     className="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-12",
                                 ),
-                                # dbc.Col(
-                                #     [
-                                #         dbc.Row(
-                                #             [
-                                #                 elem_possession_number_dropdown,
-                                #                 elem_possession_number_tooltip,
-                                #             ],
-                                #             align="center",
-                                #             justify="center",
-                                #             style={"padding": "20px 0px 20px 0px"},
-                                #         ),
-                                #         dbc.Row(
-                                #             [elem_possession_map_graph,],
-                                #             justify="center",
-                                #             align="center",
-                                #         ),
-                                #     ],
-                                #     className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
-                                # ),
+                                dbc.Col(
+                                    [
+                                        dbc.Row(
+                                            [
+                                                elem_possession_number_dropdown,
+                                                elem_possession_number_tooltip,
+                                            ],
+                                            align="center",
+                                            justify="center",
+                                            style={"padding": "20px 0px 20px 0px"},
+                                        ),
+                                        dbc.Row(
+                                            [elem_possession_map_graph,],
+                                            justify="center",
+                                            align="center",
+                                        ),
+                                    ],
+                                    className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
+                                ),
                             ]
                         ),
                     ],
                 ),
-                # dbc.Tab(
-                #     label="Heat Maps",
-                #     children=[
-                #         dbc.Row(
-                #             [
-                #                 dbc.Col(
-                #                     dbc.Row(
-                #                         [
-                #                             # Visible elements
-                #                             elem_heatmap_outcome_measure_dropdown,
-                #                             elem_heatmap_outcome_dropdown,
-                #                             elem_heatmap_metric_dropdown,
-                #                             elem_heatmap_throw_dropdown,
-                #                             elem_heatmap_opoint_dropdown,
-                #                             elem_heatmap_team_dropdown,
-                #                             elem_heatmap_team_radio,
-                #                             elem_heatmap_player_dropdown,
-                #                             elem_heatmap_yards_slider_label,
-                #                             elem_heatmap_yards_slider,
-                #                             elem_heatmap_xyards_slider_label,
-                #                             elem_heatmap_xyards_slider,
-                #                             elem_heatmap_yyards_slider_label,
-                #                             elem_heatmap_yyards_slider,
-                #                             elem_heatmap_z_switch,
-                #                             elem_heatmap_z_slider,
-                #                             # Data Stores
-                #                             elem_heatmap_click_store,
-                #                             elem_heatmap_filtered_store,
-                #                             # Tooltips
-                #                             elem_heatmap_outcome_measure_tooltip,
-                #                             elem_heatmap_outcome_tooltip,
-                #                             elem_heatmap_metric_tooltip,
-                #                             elem_heatmap_throw_tooltip,
-                #                             elem_heatmap_opoint_tooltip,
-                #                             elem_heatmap_team_tooltip,
-                #                             elem_heatmap_player_tooltip,
-                #                             elem_heatmap_yards_tooltip,
-                #                             elem_heatmap_yyards_tooltip,
-                #                             elem_heatmap_xyards_tooltip,
-                #                             elem_heatmap_z_tooltip,
-                #                         ],
-                #                         align="center",
-                #                     ),
-                #                     className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
-                #                 ),
-                #                 dbc.Col(
-                #                     [
-                #                         dbc.Row([elem_heatmap_description]),
-                #                         dbc.Row(
-                #                             [
-                #                                 elem_heatmap_first_graph,
-                #                                 elem_heatmap_second_graph,
-                #                             ],
-                #                         ),
-                #                     ],
-                #                     className="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-12",
-                #                 ),
-                #             ],
-                #             style={
-                #                 "padding": "0px 0px 0px 0px",
-                #                 "margin": "0px 0px 0px 0px",
-                #             },
-                #             align="start",
-                #         ),
-                #     ],
-                # ),
+                dbc.Tab(
+                    label="Heat Maps",
+                    children=[
+                        dbc.Row(
+                            [
+                                dbc.Col(
+                                    dbc.Row(
+                                        [
+                                            # Visible elements
+                                            elem_heatmap_outcome_measure_dropdown,
+                                            elem_heatmap_outcome_dropdown,
+                                            elem_heatmap_metric_dropdown,
+                                            elem_heatmap_throw_dropdown,
+                                            elem_heatmap_opoint_dropdown,
+                                            elem_heatmap_team_dropdown,
+                                            elem_heatmap_team_radio,
+                                            elem_heatmap_player_dropdown,
+                                            elem_heatmap_yards_slider_label,
+                                            elem_heatmap_yards_slider,
+                                            elem_heatmap_xyards_slider_label,
+                                            elem_heatmap_xyards_slider,
+                                            elem_heatmap_yyards_slider_label,
+                                            elem_heatmap_yyards_slider,
+                                            elem_heatmap_z_switch,
+                                            elem_heatmap_z_slider,
+                                            # Data Stores
+                                            elem_heatmap_click_store,
+                                            elem_heatmap_filtered_store,
+                                            # Tooltips
+                                            elem_heatmap_outcome_measure_tooltip,
+                                            elem_heatmap_outcome_tooltip,
+                                            elem_heatmap_metric_tooltip,
+                                            elem_heatmap_throw_tooltip,
+                                            elem_heatmap_opoint_tooltip,
+                                            elem_heatmap_team_tooltip,
+                                            elem_heatmap_player_tooltip,
+                                            elem_heatmap_yards_tooltip,
+                                            elem_heatmap_yyards_tooltip,
+                                            elem_heatmap_xyards_tooltip,
+                                            elem_heatmap_z_tooltip,
+                                        ],
+                                        align="center",
+                                    ),
+                                    className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
+                                ),
+                                dbc.Col(
+                                    [
+                                        dbc.Row([elem_heatmap_description]),
+                                        dbc.Row(
+                                            [
+                                                elem_heatmap_first_graph,
+                                                elem_heatmap_second_graph,
+                                            ],
+                                        ),
+                                    ],
+                                    className="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-12",
+                                ),
+                            ],
+                            style={
+                                "padding": "0px 0px 0px 0px",
+                                "margin": "0px 0px 0px 0px",
+                            },
+                            align="start",
+                        ),
+                    ],
+                ),
             ]
         )
     ],
