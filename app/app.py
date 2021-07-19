@@ -574,25 +574,25 @@ app.layout = dbc.Container(
                                     ],
                                     className="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-12",
                                 ),
-                                dbc.Col(
-                                    [
-                                        dbc.Row(
-                                            [
-                                                elem_possession_number_dropdown,
-                                                elem_possession_number_tooltip,
-                                            ],
-                                            align="center",
-                                            justify="center",
-                                            style={"padding": "20px 0px 20px 0px"},
-                                        ),
-                                        dbc.Row(
-                                            [elem_possession_map_graph,],
-                                            justify="center",
-                                            align="center",
-                                        ),
-                                    ],
-                                    className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
-                                ),
+                                # dbc.Col(
+                                #     [
+                                #         dbc.Row(
+                                #             [
+                                #                 elem_possession_number_dropdown,
+                                #                 elem_possession_number_tooltip,
+                                #             ],
+                                #             align="center",
+                                #             justify="center",
+                                #             style={"padding": "20px 0px 20px 0px"},
+                                #         ),
+                                #         dbc.Row(
+                                #             [elem_possession_map_graph,],
+                                #             justify="center",
+                                #             align="center",
+                                #         ),
+                                #     ],
+                                #     className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
+                                # ),
                             ]
                         ),
                     ],
