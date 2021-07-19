@@ -9,6 +9,7 @@ SEASONS = [
 # Get all seasons of games
 games_dict = dict()
 for season in SEASONS:
+    print("getting options for ", season)
     games_dict[season] = audl.Season(year=season).get_game_info(override=False)
 
 GAME_FLOW_COLOR_OPTIONS = [
