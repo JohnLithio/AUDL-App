@@ -24,8 +24,7 @@ GAME_OPTIONS = [
         "value": row["url"],
     }
     for _, row in games_dict[SEASONS[-1]].iterrows()
-    if (datetime.strptime(row["game_date"], "%Y-%m-%d") + timedelta(days=1))
-    < datetime.now()
+    if row["events_exist"]
 ]
 
 HOME_AWAY_OPTIONS = [
