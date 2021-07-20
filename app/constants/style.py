@@ -4,7 +4,7 @@ import plotly.io as pio
 
 # App info
 VERSION = "0.0.1"
-APP_NAME = "AUDL Stats"
+APP_NAME = "AUDL Stats Explorer"
 
 # Theme/style settings
 COLORS = [
@@ -22,7 +22,6 @@ OPTION_HEIGHT = 50
 GRAPH_TITLE_FONT_SIZE = 24
 AXIS_TITLE_FONT_SIZE = 20
 TICK_FONT_SIZE = 16
-NUM_ROWS_ASSESSMENTS = 30
 
 TEMPLATE = pio.templates["plotly_white"]
 TEMPLATE.layout["colorway"] = tuple(COLORS)
