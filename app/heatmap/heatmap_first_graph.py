@@ -5,7 +5,7 @@ from ..server import app
 
 
 @app.callback(
-    [Output("heatmap-first-graph", "figure"), Output("heatmap-click-store", "data")],
+    Output("heatmap-first-graph", "figure"),
     [
         Input("heatmap-opoint-dropdown", "value"),
         Input("heatmap-outcome-measure-dropdown", "value"),
@@ -21,9 +21,7 @@ from ..server import app
         Input("heatmap-z-slider", "disabled"),
         Input("heatmap-z-slider", "value"),
         Input("heatmap-first-graph", "clickData"),
-        Input("heatmap-second-graph", "clickData"),
     ],
-    [State("heatmap-click-store", "data"),],
 )
 def heatmap_first_graph(
     o_point,
@@ -40,8 +38,6 @@ def heatmap_first_graph(
     slider_disabled,
     zminmax,
     clickData1,
-    clickData2,
-    clickstore,
 ):
     """Update the first heatmap graph."""
     s = audl.Season()
@@ -86,44 +82,30 @@ def heatmap_first_graph(
     )
 
     if clickData1 is None:
-        x_cut = None
-        y_cut = None
+        x_cut = 2
+        y_cut = 3
     else:
         x_cut = clickData1["points"][0]["x"]
         y_cut = clickData1["points"][0]["y"]
-    if clickData2 is None:
-        x_cut_remove = None
-        y_cut_remove = None
-    else:
-        x_cut_remove = clickData2["points"][0]["x"]
-        y_cut_remove = clickData2["points"][0]["y"]
 
-    # Remove square if it was clicked
-    # When this condition is "or", square removed on any click
-    if (
-        (x_cut_remove == clickstore["x_cut"]) and (y_cut_remove == clickstore["y_cut"])
-    ) or ((x_cut == clickstore["x_old"]) and (y_cut == clickstore["y_old"])):
-        return fig, {"x_cut": -1, "y_cut": -1, "x_old": x_cut, "y_old": y_cut}
-    elif x_cut is not None:
-        # Draw square where click occurred
-        # Assumes a 5x12 grid
-        y0 = audl.HEATMAP_RATIO_V_Y * y_cut / 12
-        y1 = audl.HEATMAP_RATIO_V_Y * (y_cut + 1) / 12
-        x0 = audl.HEATMAP_RATIO_V_X * x_cut / 5
-        x1 = audl.HEATMAP_RATIO_V_X * (x_cut + 1) / 5
+    # Draw square where click occurred
+    # Assumes a 5x12 grid
+    y0 = audl.HEATMAP_RATIO_V_Y * y_cut / 12
+    y1 = audl.HEATMAP_RATIO_V_Y * (y_cut + 1) / 12
+    x0 = audl.HEATMAP_RATIO_V_X * x_cut / 5
+    x1 = audl.HEATMAP_RATIO_V_X * (x_cut + 1) / 5
 
-        fig.add_shape(
-            xref="paper",
-            yref="paper",
-            type="rect",
-            y0=y0,
-            y1=y1,
-            x0=x0,
-            x1=x1,
-            line=dict(color="black", width=0),
-            fillcolor="gray",
-            opacity=0.5,
-        )
-        clickstore = {"x_cut": x_cut, "y_cut": y_cut, "x_old": x_cut, "y_old": y_cut}
+    fig.add_shape(
+        xref="paper",
+        yref="paper",
+        type="rect",
+        y0=y0,
+        y1=y1,
+        x0=x0,
+        x1=x1,
+        line=dict(color="black", width=0),
+        fillcolor="gray",
+        opacity=0.5,
+    )
 
-    return fig, clickstore
+    return fig

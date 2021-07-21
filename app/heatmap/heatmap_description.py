@@ -19,7 +19,6 @@ from ..server import app
         Input("heatmap-yards-slider", "value"),
         Input("heatmap-xyards-slider", "value"),
         Input("heatmap-yyards-slider", "value"),
-        Input("heatmap-filtered-store", "data"),
     ],
 )
 def heatmap_description(
@@ -34,7 +33,6 @@ def heatmap_description(
     yards,
     xyards,
     yyards,
-    filtered,
 ):
     """Create a figure description based on inputs."""
 
@@ -105,16 +103,10 @@ def heatmap_description(
                 yards_str += ", "
             yards_str += f"{int(yyards[0])} to {int(yyards[1])} downfield yards"
 
-    if filtered["filtered"]:
-        if throw:
-            throw_str2 = f"The second heat map shows all receptions from throws that started in the highlighted box. Click on the box in the second map to remove this filter."
-        else:
-            throw_str2 = f"The second heat map shows the starting points of all throws that ended in the highlighted box on this heat map. Click on the box in the second map to remove this filter."
+    if throw:
+        throw_str2 = f"The second heat map shows all ending points of throws that started in the highlighted box on the first map. Click on a different spot in the first heat map to change the location."
     else:
-        if throw:
-            throw_str2 = f"The second heat map is currently showing receptions. Click anywhere on the first map to show only receptions on throws from that area."
-        else:
-            throw_str2 = f"The second heat map is currently showing throws. Click anywhere on the first map to show only throws that ended in that area."
+        throw_str2 = f"The second heat map shows the starting points of all throws that ended in the highlighted box on the first heat map. Click on a different spot in the first heat map to change the location."
 
     if outcome_measure == "throw_outcome":
         description = [
