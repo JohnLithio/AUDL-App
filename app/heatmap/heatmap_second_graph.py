@@ -62,7 +62,7 @@ def heatmap_second_graph(
     if slider_disabled is None:
         zmin = zminmax[0]
         zmax = zminmax[1]
-    elif slider_disabled[0]:
+    elif slider_disabled:
         zmin = None
         zmax = None
 

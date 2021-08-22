@@ -11,6 +11,6 @@ from ..server import app
 def heatmap_z_slider_enable(switch, metric):
     """Enable or disable the slider based on switch."""
     if (switch == ["auto"]) or (metric != "pct"):
-        return [True, True]
+        return True
     else:
         return None
