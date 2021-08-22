@@ -92,7 +92,7 @@ PLAYER_STATS_BY_SEASON_INFO_TOOLTIP = dcc.Markdown(
     "You will likely need to manually clear your filters before selecting a different stat page from the dropdown."
 )
 
-image_filename = join(__file__, r"../../../assets/throw_classifications.png")
+image_filename = join(__file__, r"../../throw_classifications.png")
 encoded_image = base64.b64encode(open(image_filename, "rb").read())
 THROW_TYPES_TOOLTIP = [
     dcc.Markdown(

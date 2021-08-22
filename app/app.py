@@ -17,7 +17,7 @@ from .heatmap import *
 from .stats import *
 
 app.title = APP_NAME
-image_filename = join(__file__, r"../../assets/info-button.png")
+image_filename = join(__file__, r"../info-button.png")
 encoded_image = base64.b64encode(open(image_filename, "rb").read())
 
 ### GAME FLOW
