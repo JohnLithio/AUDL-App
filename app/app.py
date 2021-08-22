@@ -3,17 +3,22 @@
 Author: John Lithio
 """
 
+import base64
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 import numpy as np
 from dash_table import DataTable
+from os.path import join
 from .server import app
 from .constants import *
 from .game_flow import *
 from .heatmap import *
+from .stats import *
 
 app.title = APP_NAME
+image_filename = join(__file__, r"../../assets/info-button.png")
+encoded_image = base64.b64encode(open(image_filename, "rb").read())
 
 ### GAME FLOW
 ## GAME FLOW TOOLTIPS
@@ -530,6 +535,255 @@ elem_heatmap_second_graph = dbc.Col(
     className="col-sm-12 col-md-6 col-lg-6 col-xl-6 col-12",
 )
 
+### PLAYER STATS BY GAME
+# TODO: Clear filter queries when changing table view
+# Player dropdown selection for heatmap
+player_stats_by_game_dropdown = dbc.Col(
+    [
+        dcc.Dropdown(
+            id="player-stats-by-game-dropdown",
+            options=PLAYER_STATS_BY_GAME_OPTIONS,
+            value=PLAYER_STATS_BY_GAME_OPTIONS[0]["value"],
+            multi=False,
+            clearable=False,
+            optionHeight=OPTION_HEIGHT,
+        ),
+    ],
+    style={"margin": "20px 0px 0px 0px"},
+    className="col-sm-12 col-md-4 col-lg-3 col-xl-3 col-12",
+)
+
+throw_types_tooltip = dbc.Tooltip(
+    THROW_TYPES_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="throw-types-info",
+    placement="top-start",
+    hide_arrow=True,
+)
+
+# Throw type info
+throw_types_info = dbc.Col(
+    html.P(
+        "Throw Types?",
+        id="throw-types-info",
+        style={"float": "right", "text-align": "right"},
+    ),
+    style={"margin": "20px 0px 0px 0px",},
+    className="col-sm-12 col-md-2 col-lg-1 col-xl-1 col-12",
+)
+
+player_stats_by_game_info_tooltip = dbc.Tooltip(
+    PLAYER_STATS_BY_GAME_INFO_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="player-stats-by-game-info",
+    placement="top-start",
+    hide_arrow=True,
+)
+
+# Info icon
+player_stats_by_game_info = dbc.Col(
+    dbc.Row(
+        [
+            html.P(
+                "Throw Types?",
+                id="throw-types-info",
+                style={"float": "right", "text-align": "right"},
+            ),
+            html.Img(
+                id="player-stats-by-game-info",
+                src="data:image/png;base64,{}".format(encoded_image.decode()),
+                style={"width": "25px", "height": "25px", "float": "right"},
+            ),
+        ]
+    ),
+    style={"margin": "20px 0px 0px 0px",},
+    className="col-sm-12 col-md-2 col-lg-1 col-xl-1 col-12",
+)
+
+# Empty column for padding
+player_stats_by_game_empty = dbc.Col(
+    className="col-sm-0 col-md-6 col-lg-8 col-xl-8 col-0",
+)
+
+# Player stats by game table
+player_stats_by_game_table = dbc.Col(
+    [
+        DataTable(
+            id="player-stats-by-game-table",
+            merge_duplicate_headers=True,
+            sort_action="native",
+            filter_action="native",
+            sort_as_null=["N/A"],
+            style_cell_conditional=[
+                {"if": {"column_id": "name"}, "textAlign": "left",},
+                {"if": {"column_id": "team"}, "textAlign": "left",},
+                {"if": {"column_id": "opponent"}, "textAlign": "left",},
+                {"if": {"column_id": "game_date"}, "textAlign": "left",},
+            ],
+            style_cell={
+                "background-color": "rgb(255, 255, 255)",
+                "color": "rgb(0, 51, 102)",
+                "font-family": "TW Cen MT",
+                "border": "0px",
+                "textAlign": "right",
+            },
+            style_header={
+                "textAlign": "center",
+                "background-color": "rgb(0, 51, 102)",
+                "color": "rgb(235, 235, 235)",
+                "border": "0px",
+                "whiteSpace": "normal",
+                "height": "auto",
+            },
+            style_filter={
+                "background-color": "rgb(220, 220, 220)",
+                "border-width": "0px",
+                "border-color": "rgb(0, 51, 102)",
+            },
+            style_data_conditional=[
+                {
+                    "if": {"state": "selected"},  # 'active' | 'selected'
+                    "backgroundColor": "rgba(230, 157, 0, 0.5)",
+                    "border": "0px",
+                }
+            ],
+            tooltip_header=PLAYER_STATS_HEADER_TOOLTIPS,
+            tooltip_duration=None,
+            page_size=25,
+        )
+    ],
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+)
+
+### PLAYER STATS BY SEASON
+# Player dropdown selection for heatmap
+player_stats_by_season_dropdown = dbc.Col(
+    [
+        dcc.Dropdown(
+            id="player-stats-by-season-dropdown",
+            options=PLAYER_STATS_BY_SEASON_OPTIONS,
+            value=PLAYER_STATS_BY_SEASON_OPTIONS[0]["value"],
+            multi=False,
+            clearable=False,
+            optionHeight=OPTION_HEIGHT,
+        ),
+    ],
+    style={"margin": "20px 0px 0px 0px"},
+    className="col-sm-12 col-md-4 col-lg-3 col-xl-3 col-12",
+)
+
+throw_types_tooltip2 = dbc.Tooltip(
+    THROW_TYPES_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="throw-types-info2",
+    placement="top-start",
+    hide_arrow=True,
+)
+
+# Throw type info
+throw_types_info2 = dbc.Col(
+    html.P(
+        "Throw Types?",
+        id="throw-types-info2",
+        style={"float": "right", "text-align": "right"},
+    ),
+    style={"margin": "20px 0px 0px 0px",},
+    className="col-sm-12 col-md-2 col-lg-1 col-xl-1 col-12",
+)
+
+player_stats_by_season_info_tooltip = dbc.Tooltip(
+    PLAYER_STATS_BY_SEASON_INFO_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="player-stats-by-season-info",
+    placement="top-start",
+    hide_arrow=True,
+)
+
+# Info icon
+player_stats_by_season_info = dbc.Col(
+    dbc.Row(
+        [
+            html.P(
+                "Throw Types?",
+                id="throw-types-info2",
+                style={"float": "right", "text-align": "right"},
+            ),
+            html.Img(
+                id="player-stats-by-season-info",
+                src="data:image/png;base64,{}".format(encoded_image.decode()),
+                style={"width": "25px", "height": "25px", "float": "right"},
+            ),
+        ]
+    ),
+    style={"margin": "20px 0px 0px 0px",},
+    className="col-sm-12 col-md-2 col-lg-1 col-xl-1 col-12",
+)
+
+# Empty column for padding
+player_stats_by_season_empty = dbc.Col(
+    className="col-sm-0 col-md-2 col-lg-5 col-xl-5 col-0",
+)
+
+# Switch to enable per-game totals instead of season totals
+player_stats_by_season_per_game_switch = dbc.Col(
+    dbc.Checklist(
+        id="player-stats-by-season-per-game-switch",
+        options=[{"label": "Per-Game", "value": "per_game"}],
+        value=["per_game"],
+        switch=True,
+    ),
+    style={"margin": "20px 0px 0px 0px"},
+    className="col-sm-12 col-md-4 col-lg-3 col-xl-3 col-12",
+)
+
+# Player stats by season table
+player_stats_by_season_table = dbc.Col(
+    [
+        DataTable(
+            id="player-stats-by-season-table",
+            merge_duplicate_headers=True,
+            sort_action="native",
+            filter_action="native",
+            sort_as_null=["N/A"],
+            style_cell_conditional=[
+                {"if": {"column_id": "name"}, "textAlign": "left",},
+                {"if": {"column_id": "team"}, "textAlign": "left",},
+            ],
+            style_cell={
+                "background-color": "rgb(255, 255, 255)",
+                "color": "rgb(0, 51, 102)",
+                "font-family": "TW Cen MT",
+                "border": "0px",
+                "textAlign": "right",
+            },
+            style_header={
+                "textAlign": "center",
+                "background-color": "rgb(0, 51, 102)",
+                "color": "rgb(235, 235, 235)",
+                "border": "0px",
+                "whiteSpace": "normal",
+                "height": "auto",
+            },
+            style_filter={
+                "background-color": "rgb(220, 220, 220)",
+                "border-width": "0px",
+                "border-color": "rgb(0, 51, 102)",
+            },
+            style_data_conditional=[
+                {
+                    "if": {"state": "selected"},  # 'active' | 'selected'
+                    "backgroundColor": "rgba(230, 157, 0, 0.5)",
+                    "border": "0px",
+                }
+            ],
+            tooltip_header=PLAYER_STATS_HEADER_TOOLTIPS,
+            tooltip_duration=None,
+            page_size=25,
+        )
+    ],
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+)
+
 ## APP STRUCTURE
 app.layout = dbc.Container(
     [
@@ -660,6 +914,39 @@ app.layout = dbc.Container(
                                 "margin": "0px 0px 0px 0px",
                             },
                             align="start",
+                        ),
+                    ],
+                ),
+                dbc.Tab(
+                    label="Player Game Stats",
+                    children=[
+                        dbc.Row(
+                            children=[
+                                player_stats_by_game_dropdown,
+                                player_stats_by_game_empty,
+                                player_stats_by_game_info,
+                                player_stats_by_game_table,
+                                # Tooltips
+                                throw_types_tooltip,
+                                player_stats_by_game_info_tooltip,
+                            ]
+                        ),
+                    ],
+                ),
+                dbc.Tab(
+                    label="Player Season Stats",
+                    children=[
+                        dbc.Row(
+                            children=[
+                                player_stats_by_season_dropdown,
+                                player_stats_by_season_per_game_switch,
+                                player_stats_by_season_empty,
+                                player_stats_by_season_info,
+                                player_stats_by_season_table,
+                                # Tooltips
+                                throw_types_tooltip2,
+                                player_stats_by_season_info_tooltip,
+                            ]
                         ),
                     ],
                 ),
