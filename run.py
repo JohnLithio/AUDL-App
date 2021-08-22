@@ -10,10 +10,6 @@ def open_browser():
     webbrowser.open_new("http://127.0.0.1:2000/")
 
 
-# TODO: Pre-process as much data as possible and store on s3
-#       Player names
-#       Game info
-#       Teams
 # TODO: Make checking S3 optional
 # TODO: Set up script to makes sure all s3 files are up to date and schedule to run weekly
 # TODO: Dan's suggestions:
