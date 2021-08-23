@@ -9,6 +9,8 @@ def get_per_game_averages(df):
     for col in list(df):
         if (
             ("_pct" not in col)
+            and ("_percompletion" not in col)
+            and ("_perreception" not in col)
             and ("_perthrowaway" not in col)
             and ("_perthrowattempt" not in col)
             and ("_percatchattempt" not in col)
@@ -33,7 +35,7 @@ def get_per_game_averages(df):
 )
 def player_stats_by_season(stat_group, per_game_switch):
     """Display player stats by season."""
-    per_game = per_game_switch==["per_game"]
+    per_game = per_game_switch == ["per_game"]
     df_list = []
     for season in SEASONS:
         df_list.append(

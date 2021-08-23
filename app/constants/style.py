@@ -43,6 +43,7 @@ def stat_table_format(col, per_game):
         return FormatTemplate.percentage(0)
     elif (
         ("_percompletion" in col)
+        or ("_perreception" in col)
         or ("_perthrowaway" in col)
         or ("_perthrowattempt" in col)
         or ("_percatchattempt" in col)
