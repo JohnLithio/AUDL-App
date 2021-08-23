@@ -51,6 +51,16 @@ def stat_table_format(col, per_game):
         or ("_ratio_" in col)
     ) and ("yards" not in col):
         return Format(precision=2, scheme=Scheme.fixed)
+    elif (
+        ("_percompletion" in col)
+        or ("_perreception" in col)
+        or ("_perthrowaway" in col)
+        or ("_perthrowattempt" in col)
+        or ("_percatchattempt" in col)
+        or ("_pp" in col)
+        or ("_ratio_" in col)
+    ) and ("yards" in col):
+        return Format(precision=1, scheme=Scheme.fixed)
     elif per_game:
         return Format(precision=1, scheme=Scheme.fixed)
     else:
