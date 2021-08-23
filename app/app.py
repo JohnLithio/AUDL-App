@@ -8,6 +8,7 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 import numpy as np
+import os
 from dash_table import DataTable
 from os.path import join
 from .server import app
@@ -17,8 +18,11 @@ from .heatmap import *
 from .stats import *
 
 app.title = APP_NAME
-image_filename = join(__file__, r"../info-button.png")
-encoded_image = base64.b64encode(open(image_filename, "rb").read())
+image_filename_info = app.get_asset_url(r"info-button.png")[1:]
+encoded_image_info = base64.b64encode(open(image_filename_info, "rb").read())
+
+image_filename_throws = app.get_asset_url(r"throw_classifications.png")[1:]
+encoded_image_throws = base64.b64encode(open(image_filename_throws, "rb").read())
 
 ### GAME FLOW
 ## GAME FLOW TOOLTIPS
@@ -554,7 +558,12 @@ player_stats_by_game_dropdown = dbc.Col(
 )
 
 throw_types_tooltip = dbc.Tooltip(
-    THROW_TYPES_TOOLTIP,
+    [
+        dcc.Markdown(
+            "See the below image for my arbitrary definitions of throw types:\n\n"
+        ),
+        html.Img(src="data:image/png;base64,{}".format(encoded_image_throws.decode()),),
+    ],
     innerClassName="tooltip-custom",
     target="throw-types-info",
     placement="top-start",
@@ -591,7 +600,7 @@ player_stats_by_game_info = dbc.Col(
             ),
             html.Img(
                 id="player-stats-by-game-info",
-                src="data:image/png;base64,{}".format(encoded_image.decode()),
+                src="data:image/png;base64,{}".format(encoded_image_info.decode()),
                 style={"width": "25px", "height": "25px", "float": "right"},
             ),
         ]
@@ -673,7 +682,12 @@ player_stats_by_season_dropdown = dbc.Col(
 )
 
 throw_types_tooltip2 = dbc.Tooltip(
-    THROW_TYPES_TOOLTIP,
+    [
+        dcc.Markdown(
+            "See the below image for my arbitrary definitions of throw types:\n\n"
+        ),
+        html.Img(src="data:image/png;base64,{}".format(encoded_image_throws.decode()),),
+    ],
     innerClassName="tooltip-custom",
     target="throw-types-info2",
     placement="top-start",
@@ -710,7 +724,7 @@ player_stats_by_season_info = dbc.Col(
             ),
             html.Img(
                 id="player-stats-by-season-info",
-                src="data:image/png;base64,{}".format(encoded_image.decode()),
+                src="data:image/png;base64,{}".format(encoded_image_info.decode()),
                 style={"width": "25px", "height": "25px", "float": "right"},
             ),
         ]
