@@ -251,7 +251,7 @@ PLAYER_STATS_COLS_DISPLAY = {
     "attempts_throw_pct": "OTH %",
     "xyards_throwing_total": "Yds Thr X",
     "yards_throwing_total": "Yds Thr X&Y",
-    "xyards_receiving_total": "Yds Thr X",
+    "xyards_receiving_total": "Yds Rec X",
     "yards_receiving_total": "Yds Rec X&Y",
     "xyards_total": "Tot Yds X",
     "yards_total": "Tot Yds X&Y",
