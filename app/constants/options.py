@@ -11,6 +11,11 @@ games_dict = dict()
 for season in SEASONS:
     games_dict[season] = audl.Season(year=season).get_game_info(override=False)
 
+GAME_FLOW_TEAM_OPTIONS = [{"label": "Any Team", "value": "any"}] + [
+    {"label": row["team_name"], "value": row["team_abbrev"]}
+    for i, row in audl.Season().get_teams().iterrows()
+]
+
 GAME_FLOW_COLOR_OPTIONS = [
     {"label": "Receiving Team", "value": "o_point"},
     {"label": "Point Outcome", "value": "point_outcome"},

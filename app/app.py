@@ -26,6 +26,14 @@ encoded_image_throws = base64.b64encode(open(image_filename_throws, "rb").read()
 
 ### GAME FLOW
 ## GAME FLOW TOOLTIPS
+elem_team_tooltip = dbc.Tooltip(
+    GAME_FLOW_TEAM_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="game-flow-team-label",
+    placement="top-start",
+    hide_arrow=True,
+)
+
 elem_game_tooltip = dbc.Tooltip(
     GAME_TOOLTIP,
     innerClassName="tooltip-custom",
@@ -61,6 +69,22 @@ elem_possession_number_tooltip = dbc.Tooltip(
 
 ## GAME FLOW ELEMENTS
 # Game selection
+elem_team_dropdown = dbc.Col(
+    [
+        html.Label("Team", id="game-flow-team-label"),
+        dcc.Dropdown(
+            id="game-flow-team-dropdown",
+            options=GAME_FLOW_TEAM_OPTIONS,
+            value=GAME_FLOW_TEAM_OPTIONS[0]["value"],
+            multi=False,
+            clearable=False,
+            optionHeight=OPTION_HEIGHT,
+        ),
+    ],
+    className="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-12",
+)
+
+# Game selection
 elem_game_dropdown = dbc.Col(
     [
         html.Label("Game", id="game-flow-game-label"),
@@ -73,7 +97,7 @@ elem_game_dropdown = dbc.Col(
             optionHeight=OPTION_HEIGHT,
         ),
     ],
-    className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
+    className="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-12",
 )
 
 # Home/Away selection
@@ -89,7 +113,7 @@ elem_home_away_dropdown = dbc.Col(
             optionHeight=OPTION_HEIGHT,
         ),
     ],
-    className="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-12",
+    className="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-12",
 )
 
 # Game flow substitutions graph color selection
@@ -105,7 +129,7 @@ elem_game_flow_substitutions_color_dropdown = dbc.Col(
             optionHeight=OPTION_HEIGHT,
         ),
     ],
-    className="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-12",
+    className="col-sm-12 col-md-6 col-lg-3 col-xl-3 col-12",
 )
 
 # Possession number selection for possession map
@@ -812,10 +836,12 @@ app.layout = dbc.Container(
                                     [
                                         dbc.Row(
                                             [
+                                                elem_team_dropdown,
                                                 elem_game_dropdown,
                                                 elem_home_away_dropdown,
                                                 elem_game_flow_substitutions_color_dropdown,
                                                 # Tooltips
+                                                elem_team_tooltip,
                                                 elem_game_tooltip,
                                                 elem_home_away_tooltip,
                                                 elem_substitutions_color_tooltip,

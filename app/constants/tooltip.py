@@ -6,6 +6,10 @@ import dash_html_components as html
 from os.path import join
 
 # GAME FLOW TOOLTIPS
+GAME_FLOW_TEAM_TOOLTIP = (
+    "Select a team to filter the games dropdown to only their games."
+)
+
 GAME_TOOLTIP = (
     "Select the game you want to see by scrolling or searching.\n"
     "For each game, you will get a graph of the score throughout the game and\n"
