@@ -13,4 +13,4 @@ plotly==4.14.3
 pyarrow==3.0.0
 requests==2.22.0
 scikit-learn==0.22.1
-git+https://github.com/JohnLithio/AUDL-Advanced-Stats.git@fac4df893d69b24ccc0d6704e550eec217fd3b6c
+git+https://github.com/JohnLithio/AUDL-Advanced-Stats.git@0bc452af67adef4a29684e30544a10ae17e9bd3d
