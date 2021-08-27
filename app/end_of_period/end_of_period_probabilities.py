@@ -163,7 +163,7 @@ def end_of_period_probabilities(
     elif diff_expected_margin == 0:
         diff_str = f"as good as"
     else:
-        diff_str = f"{np.abs(diff_expected_margin):.2f} points worse"
+        diff_str = f"{np.abs(diff_expected_margin):.2f} points worse than"
 
     diff_expected_margin_str = [
         dcc.Markdown(
