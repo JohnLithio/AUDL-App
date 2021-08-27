@@ -13,6 +13,7 @@ from dash_table import DataTable
 from os.path import join
 from .server import app
 from .constants import *
+from .end_of_period import *
 from .game_flow import *
 from .heatmap import *
 from .stats import *
@@ -822,6 +823,447 @@ player_stats_by_season_table = dbc.Col(
     className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
 )
 
+### END OF PERIOD
+## Probability calcs tooltips
+elem_time_at_midfield_tooltip = dbc.Tooltip(
+    TIME_AT_MIDFIELD_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="end-of-period-time-at-midfield-label",
+    placement="top-start",
+    hide_arrow=True,
+)
+
+elem_time_to_score_tooltip = dbc.Tooltip(
+    TIME_TO_SCORE_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="end-of-period-time-to-score-label",
+    placement="top-start",
+    hide_arrow=True,
+)
+
+elem_p_turn_opponent_score_under_tooltip = dbc.Tooltip(
+    P_TURN_OPPONENT_SCORE_UNDER_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="end-of-period-turn-opponent-score-under-label",
+    placement="top-start",
+    hide_arrow=True,
+)
+
+elem_p_turn_opponent_score_over_tooltip = dbc.Tooltip(
+    P_TURN_OPPONENT_SCORE_OVER_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="end-of-period-turn-opponent-score-over-label",
+    placement="top-start",
+    hide_arrow=True,
+)
+
+elem_p_score_opponent_score_under_tooltip = dbc.Tooltip(
+    P_SCORE_OPPONENT_SCORE_UNDER_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="end-of-period-score-opponent-score-under-label",
+    placement="top-start",
+    hide_arrow=True,
+)
+
+elem_p_score_opponent_score_over_tooltip = dbc.Tooltip(
+    P_SCORE_OPPONENT_SCORE_OVER_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="end-of-period-score-opponent-score-over-label",
+    placement="top-start",
+    hide_arrow=True,
+)
+
+elem_p_score_run_clock_tooltip = dbc.Tooltip(
+    P_SCORE_RUN_CLOCK_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="end-of-period-score-run-clock-label",
+    placement="top-start",
+    hide_arrow=True,
+)
+
+elem_p_score_no_run_clock_tooltip = dbc.Tooltip(
+    P_SCORE_NO_RUN_CLOCK_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="end-of-period-score-no-run-clock-label",
+    placement="top-start",
+    hide_arrow=True,
+)
+
+elem_p_completion_tooltip = dbc.Tooltip(
+    P_COMPLETION_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="end-of-period-completion-label",
+    placement="top-start",
+    hide_arrow=True,
+)
+
+elem_time_per_pass_tooltip = dbc.Tooltip(
+    TIME_PER_PASS_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="end-of-period-time-per-pass-label",
+    placement="top-start",
+    hide_arrow=True,
+)
+
+## Probability calcs
+# End of period title
+elem_end_of_period_title = dbc.Col(
+    html.H2(id="end-of-period-title", children="End of Period Strategy",),
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+    style={"margin": "20px 0px 0px 0px"},
+)
+
+# End of period instructions
+elem_end_of_period_instructions = dbc.Col(
+    html.P(
+        id="end-of-period-instructions",
+        children=(
+            "The below inputs and summary are for calculating the probabilties associated "
+            "with two different end of period offensive strategies. The first involves playing the point as usual - "
+            "in other words, trying to score as quickly and efficiently as possible. "
+            "The second is intentionally running the clock down to a pre-determined time (x) before trying to score. "
+            "In these calculations, we're assuming that the first strategy results in a score with more than x seconds "
+            "left in the period. We are also assuming that the second strategy involves getting the disc past midfield before "
+            "running the clock down to x seconds. The inputs you see when you first look at this page are "
+            "educated guesses based on the graph on this tab as well as info from the heatmaps, but you should feel free to adjust "
+            "the inputs as you see fit. Hover over the names of the inputs for more details on what each one is."
+        ),
+    ),
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+    style={"margin": "20px 0px 0px 0px"},
+)
+
+elem_end_of_period_description = dbc.Col(
+    html.P(id="end-of-period-description", children="Test text",),
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+    style={"margin": "20px 0px 0px 0px"},
+)
+
+pct_sign = html.P("%", className="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-1",)
+
+seconds_label = html.P("sec", className="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-1",)
+
+# Time threshold when we start trying to score
+elem_time_to_score = dbc.Col(
+    dbc.Row(
+        [
+            html.Label(
+                "Time to start trying to score",
+                id="end-of-period-time-to-score-label",
+                className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-12",
+            ),
+            dbc.Input(
+                type="number",
+                value=20,
+                min=10,
+                max=60,
+                step=1,
+                bs_size="sm",
+                id="end-of-period-time-to-score",
+                className="col-sm-11 col-md-11 col-lg-3 col-xl-3 col-11",
+            ),
+            seconds_label,
+        ],
+    ),
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+)
+
+# Time left when we get past midfield
+elem_time_at_midfield = dbc.Col(
+    dbc.Row(
+        [
+            html.Label(
+                "Time left after midfield",
+                id="end-of-period-time-at-midfield-label",
+                className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-12",
+            ),
+            dbc.Input(
+                type="number",
+                value=60,
+                min=10,
+                max=720,
+                step=1,
+                bs_size="sm",
+                id="end-of-period-time-at-midfield",
+                className="col-sm-11 col-md-11 col-lg-3 col-xl-3 col-11",
+            ),
+            seconds_label,
+        ],
+    ),
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+)
+
+# Probability of other team scoring after turn from farther than midfield
+elem_p_turn_opponent_score_under = dbc.Col(
+    dbc.Row(
+        [
+            html.Label(
+                "Prob. opp. score after turn, <20s",
+                id="end-of-period-turn-opponent-score-under-label",
+                className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-12",
+            ),
+            dbc.Input(
+                type="number",
+                value=10,
+                min=0,
+                max=100,
+                step=1,
+                bs_size="sm",
+                id="end-of-period-turn-opponent-score-under",
+                className="col-sm-11 col-md-11 col-lg-3 col-xl-3 col-11",
+            ),
+            pct_sign,
+        ],
+    ),
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+)
+
+# Probability of other team scoring after turn from farther than midfield
+elem_p_turn_opponent_score_over = dbc.Col(
+    dbc.Row(
+        [
+            html.Label(
+                "Prob. opp. score after turn, >20s",
+                id="end-of-period-turn-opponent-score-over-label",
+                className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-12",
+            ),
+            dbc.Input(
+                type="number",
+                value=30,
+                min=0,
+                max=100,
+                step=1,
+                bs_size="sm",
+                id="end-of-period-turn-opponent-score-over",
+                className="col-sm-11 col-md-11 col-lg-3 col-xl-3 col-11",
+            ),
+            pct_sign,
+        ],
+    ),
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+)
+
+# Probability of other team scoring after score
+elem_p_score_opponent_score_under = dbc.Col(
+    dbc.Row(
+        [
+            html.Label(
+                "Prob. opp. score after score, <20s",
+                id="end-of-period-score-opponent-score-under-label",
+                className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-12",
+            ),
+            dbc.Input(
+                type="number",
+                value=25,
+                min=0,
+                max=100,
+                step=1,
+                bs_size="sm",
+                id="end-of-period-score-opponent-score-under",
+                className="col-sm-11 col-md-11 col-lg-3 col-xl-3 col-11",
+            ),
+            pct_sign,
+        ],
+    ),
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+)
+
+# Probability of other team scoring after score
+elem_p_score_opponent_score_over = dbc.Col(
+    dbc.Row(
+        [
+            html.Label(
+                "Prob. opp. score after score, >20s",
+                id="end-of-period-score-opponent-score-over-label",
+                className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-12",
+            ),
+            dbc.Input(
+                type="number",
+                value=55,
+                min=0,
+                max=100,
+                step=1,
+                bs_size="sm",
+                id="end-of-period-score-opponent-score-over",
+                className="col-sm-11 col-md-11 col-lg-3 col-xl-3 col-11",
+            ),
+            pct_sign,
+        ],
+    ),
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+)
+
+# Probability of us scoring after running clock
+elem_p_score_run_clock = dbc.Col(
+    dbc.Row(
+        [
+            html.Label(
+                "Prob. scoring after running clock",
+                id="end-of-period-score-run-clock-label",
+                className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-12",
+            ),
+            dbc.Input(
+                type="number",
+                value=80,
+                min=0,
+                max=100,
+                step=1,
+                bs_size="sm",
+                id="end-of-period-score-run-clock",
+                className="col-sm-11 col-md-11 col-lg-3 col-xl-3 col-11",
+            ),
+            pct_sign,
+        ],
+    ),
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+)
+
+# Probability of us scoring without running clock
+elem_p_score_no_run_clock = dbc.Col(
+    dbc.Row(
+        [
+            html.Label(
+                "Prob. scoring w/o running clock",
+                id="end-of-period-score-no-run-clock-label",
+                className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-12",
+            ),
+            dbc.Input(
+                type="number",
+                value=80,
+                min=0,
+                max=100,
+                step=1,
+                bs_size="sm",
+                id="end-of-period-score-no-run-clock",
+                className="col-sm-11 col-md-11 col-lg-3 col-xl-3 col-11",
+            ),
+            pct_sign,
+        ],
+    ),
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+)
+
+# Probability of completing each pass while running clock
+elem_p_completion = dbc.Col(
+    dbc.Row(
+        [
+            html.Label(
+                "Prob. completion while running clock",
+                id="end-of-period-completion-label",
+                className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-12",
+            ),
+            dbc.Input(
+                type="number",
+                value=99,
+                min=0,
+                max=100,
+                step=1,
+                bs_size="sm",
+                id="end-of-period-completion",
+                className="col-sm-11 col-md-11 col-lg-3 col-xl-3 col-11",
+            ),
+            pct_sign,
+        ],
+    ),
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+)
+
+# Time per pass while running clock
+elem_time_per_pass = dbc.Col(
+    dbc.Row(
+        [
+            html.Label(
+                "Time per pass while running clock",
+                id="end-of-period-time-per-pass-label",
+                className="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-12",
+            ),
+            dbc.Input(
+                type="number",
+                value=3,
+                min=1,
+                max=7,
+                step=1,
+                bs_size="sm",
+                id="end-of-period-time-per-pass",
+                className="col-sm-11 col-md-11 col-lg-3 col-xl-3 col-11",
+            ),
+            seconds_label,
+        ],
+    ),
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+)
+
+## Score Pct Graph
+# Team dropdown selection for end of period viz
+elem_end_of_period_team_dropdown = dbc.Col(
+    [
+        html.Label("Teams", id="end-of-period-team-label"),
+        dcc.Dropdown(
+            id="end-of-period-team-dropdown",
+            options=HEATMAP_TEAM_OPTIONS,
+            value=[],
+            multi=True,
+            clearable=True,
+            optionHeight=OPTION_HEIGHT,
+        ),
+    ],
+    style={"margin": "20px 0px 0px 0px"},
+    className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
+)
+
+# Period dropdown selection for end of period viz
+elem_end_of_period_period_dropdown = dbc.Col(
+    [
+        html.Label("Periods", id="end-of-period-period-label"),
+        dcc.Dropdown(
+            id="end-of-period-period-dropdown",
+            options=[
+                {"label": "1", "value": 1},
+                {"label": "2", "value": 2},
+                {"label": "3", "value": 3},
+                {"label": "4", "value": 4},
+                {"label": "OT1", "value": 5},
+            ],
+            value=[1, 2, 3,],
+            multi=True,
+            clearable=True,
+            optionHeight=OPTION_HEIGHT,
+        ),
+    ],
+    style={"margin": "20px 0px 0px 0px"},
+    className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
+)
+
+# Selection for offense or defensive team
+elem_end_of_period_team_radio = dbc.Col(
+    [
+        dbc.RadioItems(
+            id="end-of-period-team-radio",
+            options=[
+                {"label": "Offense", "value": "offense"},
+                {"label": "Defense", "value": "defense"},
+            ],
+            value="offense",
+            inline=True,
+        ),
+    ],
+    style={"margin": "20px 0px 0px 0px", "padding": "20px 20px 0px 0px"},
+    className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
+)
+
+# Score probability by possession start time graph
+elem_end_of_period_time_graph = dbc.Col(
+    [
+        dcc.Graph(
+            id="end-of-period-time-graph",
+            config={"displaylogo": False, "displayModeBar": False,},
+            # style={"aspect-ratio": "1 / 2", "max-height": "750px", "margin": "0 auto"},
+        ),
+    ],
+    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+)
+
+
 ## APP STRUCTURE
 app.layout = dbc.Container(
     [
@@ -986,6 +1428,60 @@ app.layout = dbc.Container(
                                 # Tooltips
                                 throw_types_tooltip2,
                                 player_stats_by_season_info_tooltip,
+                            ]
+                        ),
+                    ],
+                ),
+                dbc.Tab(
+                    label="End of Period",
+                    children=[
+                        dbc.Row(
+                            children=[
+                                dbc.Col(
+                                    dbc.Row(
+                                        [
+                                            elem_end_of_period_period_dropdown,
+                                            elem_end_of_period_team_dropdown,
+                                            elem_end_of_period_team_radio,
+                                            elem_end_of_period_time_graph,
+                                        ]
+                                    ),
+                                    className="col-sm-12 col-md-12 col-lg-7 col-xl-7 col-12",
+                                ),
+                                dbc.Col(
+                                    [
+                                        dbc.Row([elem_end_of_period_title]),
+                                        dbc.Row([elem_end_of_period_instructions,]),
+                                        dbc.Row(
+                                            [
+                                                elem_time_at_midfield,
+                                                elem_time_to_score,
+                                                elem_p_turn_opponent_score_under,
+                                                elem_p_turn_opponent_score_over,
+                                                elem_p_score_opponent_score_under,
+                                                elem_p_score_opponent_score_over,
+                                                elem_p_score_run_clock,
+                                                elem_p_score_no_run_clock,
+                                                elem_p_completion,
+                                                elem_time_per_pass,
+                                                elem_end_of_period_description,
+                                                # Tooltips
+                                                elem_time_at_midfield_tooltip,
+                                                elem_time_to_score_tooltip,
+                                                elem_p_turn_opponent_score_under_tooltip,
+                                                elem_p_turn_opponent_score_over_tooltip,
+                                                elem_p_score_opponent_score_under_tooltip,
+                                                elem_p_score_opponent_score_over_tooltip,
+                                                elem_p_score_run_clock_tooltip,
+                                                elem_p_score_no_run_clock_tooltip,
+                                                elem_p_completion_tooltip,
+                                                elem_time_per_pass_tooltip,
+                                            ]
+                                        ),
+                                    ],
+                                    style={"padding": "20px 20px 0px 20px"},
+                                    className="col-sm-12 col-md-12 col-lg-5 col-xl-5 col-12",
+                                ),
                             ]
                         ),
                     ],

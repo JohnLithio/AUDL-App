@@ -242,3 +242,66 @@ PLAYER_STATS_HEADER_TOOLTIPS = {
     "yx_ratio_throwing": "Ratio of downfield to sideways throwing yards",
     "yx_ratio_receiving": "Ratio of downfield to sideways receiving yards",
 }
+
+## END OF PERIOD PROBABILITY TOOLTIPS
+TIME_AT_MIDFIELD_TOOLTIP = (
+    "The amount of time left in the period when the disc crosses midfield.\n"
+    "The difference between this and the time to start trying to score is\n"
+    "how long the clock will need to be run without trying to score."
+)
+
+TIME_TO_SCORE_TOOLTIP = "The amount of time left in the period at which the offense will start trying to score."
+
+P_TURN_OPPONENT_SCORE_UNDER_TOOLTIP = (
+    "The probability the other team will score after a turnover from\n"
+    "farther than midfield with less than x seconds left.\n"
+    "This represents the other team scoring after the offense turns it over\n"
+    "while trying to score after successfully running clock."
+)
+
+P_TURN_OPPONENT_SCORE_OVER_TOOLTIP = (
+    "The probability the other team will score after a turnover from\n"
+    "farther than midfield with more than x seconds left.\n"
+    "This represents the other team scoring after the offense turns it over\n"
+    "while trying to run clock OR the other team scoring after the offense turns it over\n"
+    "while trying to score while not trying to run clock."
+)
+
+P_SCORE_OPPONENT_SCORE_UNDER_TOOLTIP = (
+    "The probability the other team will score after the offense scores\n"
+    "with less than x seconds left."
+)
+
+P_SCORE_OPPONENT_SCORE_OVER_TOOLTIP = (
+    "The probability the other team will score after the offense scores\n"
+    "with more than x seconds left."
+)
+
+P_SCORE_RUN_CLOCK_TOOLTIP = (
+    "The probability the offense will score given that they have successfully\n"
+    "run the clock down to x seconds.\n"
+    "You should NOT account for the possibility of turning the disc over while\n"
+    "running clock here. That is handled with the prob. of completion while running\n"
+    "clock and the time per pass while running clock."
+)
+
+P_SCORE_NO_RUN_CLOCK_TOOLTIP = (
+    "The probability the offense will score when they are not using the strategy\n"
+    "of running the clock down.\n"
+    "Note that you can simulate a wide open look to the endzone w/ greater than x\n"
+    "seconds left by changing this probability to 99 or 100."
+)
+
+P_COMPLETION_TOOLTIP = (
+    "The probability of completing each pass while running clock.\n"
+    "This is combined with time per pass to estimate how likely the offense is\n"
+    "to retain possession while running clock."
+)
+
+TIME_PER_PASS_TOOLTIP = (
+    "The amount of time each pass takes while running clock.\n"
+    "This is used to estimate the number of passes needed to run the clock\n"
+    "down to the desired time. The number of passes is then combined with the\n"
+    "probability of completion to estimate how likely the offense is to retain\n"
+    "possession while running clock."
+)
