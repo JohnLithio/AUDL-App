@@ -10,14 +10,22 @@ from ..server import app
         Output("player-stats-by-game-table", "data"),
         Output("player-stats-by-game-table", "columns"),
     ],
-    [Input("player-stats-by-game-dropdown", "value"),],
+    [
+        Input("player-stats-by-game-dropdown", "value"),
+        Input("player-stats-by-game-playoffs-dropdown", "value"),
+    ],
 )
-def player_stats_by_game(stat_group):
+def player_stats_by_game(stat_group, playoffs):
     """Display player stats by game."""
+    if playoffs == "all":
+        playoffs = [True, False]
+
     df_list = []
     for season in SEASONS:
         df_list.append(
-            audl.Season(year=season).get_player_stats_by_game()[
+            audl.Season(year=season)
+            .get_player_stats_by_game()
+            .query(f"playoffs=={playoffs}")[
                 PLAYER_GAME_STATS_INFO_COLS + PLAYER_STATS_OPTIONS_COLUMNS[stat_group]
             ]
         )

@@ -30,16 +30,17 @@ def get_per_game_averages(df):
     ],
     [
         Input("player-stats-by-season-dropdown", "value"),
+        Input("player-stats-by-season-playoffs-dropdown", "value"),
         Input("player-stats-by-season-per-game-switch", "value"),
     ],
 )
-def player_stats_by_season(stat_group, per_game_switch):
+def player_stats_by_season(stat_group, playoffs, per_game_switch):
     """Display player stats by season."""
     per_game = per_game_switch == ["per_game"]
     df_list = []
     for season in SEASONS:
         df_list.append(
-            audl.Season(year=season).get_player_stats_by_season()[
+            audl.Season(year=season).get_player_stats_by_season(playoffs=playoffs)[
                 PLAYER_SEASON_STATS_INFO_COLS + PLAYER_STATS_OPTIONS_COLUMNS[stat_group]
             ]
         )

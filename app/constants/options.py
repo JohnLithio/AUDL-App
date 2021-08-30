@@ -132,6 +132,12 @@ HEATMAP_Z_MARKS = {
     1: "100%",
 }
 
+PLAYER_STATS_PLAYOFFS_OPTIONS = [
+    {"label": "Regular Season", "value": False},
+    {"label": "Playoffs", "value": True},
+    {"label": "Reg. Season & Playoffs", "value": "all"},
+]
+
 PLAYER_STATS_BY_GAME_OPTIONS = [
     {"label": "General", "value": "general"},
     {"label": "Plus/Minus Overview", "value": "plus_minus_overview"},

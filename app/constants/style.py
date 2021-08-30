@@ -6,7 +6,7 @@ from dash_table.Format import Format, Scheme
 from .options import *
 
 # App info
-VERSION = "0.1.1"
+VERSION = "0.1.2"
 APP_NAME = "AUDL Stats Explorer"
 
 # Theme/style settings

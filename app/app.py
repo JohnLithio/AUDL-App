@@ -582,6 +582,54 @@ player_stats_by_game_dropdown = dbc.Col(
     className="col-sm-12 col-md-4 col-lg-3 col-xl-3 col-12",
 )
 
+# Player dropdown selection for heatmap
+player_stats_by_game_playoffs_dropdown = dbc.Col(
+    [
+        dcc.Dropdown(
+            id="player-stats-by-game-playoffs-dropdown",
+            options=PLAYER_STATS_PLAYOFFS_OPTIONS,
+            value=PLAYER_STATS_PLAYOFFS_OPTIONS[0]["value"],
+            multi=False,
+            clearable=False,
+            optionHeight=OPTION_HEIGHT,
+        ),
+    ],
+    style={"margin": "20px 0px 0px 0px"},
+    className="col-sm-12 col-md-4 col-lg-3 col-xl-3 col-12",
+)
+
+# Throw type info
+throw_types_info = dbc.Col(
+    html.P(
+        "Throw Types?",
+        id="throw-types-info",
+        style={"float": "right", "text-align": "right"},
+    ),
+    className="col-sm-9 col-md-9 col-lg-9 col-xl-9 col-9",
+)
+
+info_icon_by_game = dbc.Col(
+    html.Img(
+        id="player-stats-by-game-info",
+        src="data:image/png;base64,{}".format(encoded_image_info.decode()),
+        style={"width": "25px", "height": "25px", "float": "right"},
+    ),
+    className="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-3",
+)
+
+# Info icon
+player_stats_by_game_info = dbc.Col(
+    dbc.Row([throw_types_info, info_icon_by_game]),
+    style={"margin": "20px 0px 0px 0px",},
+    className="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-12",
+)
+
+# Empty column for padding
+player_stats_by_game_empty = dbc.Col(
+    className="col-sm-0 col-md-0 col-lg-4 col-xl-4 col-0",
+)
+
+# TOOLTIPS
 throw_types_tooltip = dbc.Tooltip(
     [
         dcc.Markdown(
@@ -595,48 +643,12 @@ throw_types_tooltip = dbc.Tooltip(
     hide_arrow=True,
 )
 
-# Throw type info
-throw_types_info = dbc.Col(
-    html.P(
-        "Throw Types?",
-        id="throw-types-info",
-        style={"float": "right", "text-align": "right"},
-    ),
-    style={"margin": "20px 0px 0px 0px",},
-    className="col-sm-12 col-md-2 col-lg-1 col-xl-1 col-12",
-)
-
 player_stats_by_game_info_tooltip = dbc.Tooltip(
     PLAYER_STATS_BY_GAME_INFO_TOOLTIP,
     innerClassName="tooltip-custom",
     target="player-stats-by-game-info",
     placement="top-start",
     hide_arrow=True,
-)
-
-# Info icon
-player_stats_by_game_info = dbc.Col(
-    dbc.Row(
-        [
-            html.P(
-                "Throw Types?",
-                id="throw-types-info",
-                style={"float": "right", "text-align": "right"},
-            ),
-            html.Img(
-                id="player-stats-by-game-info",
-                src="data:image/png;base64,{}".format(encoded_image_info.decode()),
-                style={"width": "25px", "height": "25px", "float": "right"},
-            ),
-        ]
-    ),
-    style={"margin": "20px 0px 0px 0px",},
-    className="col-sm-12 col-md-2 col-lg-1 col-xl-1 col-12",
-)
-
-# Empty column for padding
-player_stats_by_game_empty = dbc.Col(
-    className="col-sm-0 col-md-6 col-lg-8 col-xl-8 col-0",
 )
 
 # Player stats by game table
@@ -706,6 +718,66 @@ player_stats_by_season_dropdown = dbc.Col(
     className="col-sm-12 col-md-4 col-lg-3 col-xl-3 col-12",
 )
 
+# Player dropdown selection for heatmap
+player_stats_by_season_playoffs_dropdown = dbc.Col(
+    [
+        dcc.Dropdown(
+            id="player-stats-by-season-playoffs-dropdown",
+            options=PLAYER_STATS_PLAYOFFS_OPTIONS,
+            value=PLAYER_STATS_PLAYOFFS_OPTIONS[0]["value"],
+            multi=False,
+            clearable=False,
+            optionHeight=OPTION_HEIGHT,
+        ),
+    ],
+    style={"margin": "20px 0px 0px 0px"},
+    className="col-sm-12 col-md-3 col-lg-3 col-xl-3 col-12",
+)
+
+# Throw type info
+throw_types_info2 = dbc.Col(
+    html.P(
+        "Throw Types?",
+        id="throw-types-info2",
+        style={"float": "right", "text-align": "right"},
+    ),
+    className="col-sm-9 col-md-9 col-lg-9 col-xl-9 col-9",
+)
+
+info_icon_by_season = dbc.Col(
+    html.Img(
+        id="player-stats-by-season-info",
+        src="data:image/png;base64,{}".format(encoded_image_info.decode()),
+        style={"width": "25px", "height": "25px", "float": "right"},
+    ),
+    className="col-sm-3 col-md-3 col-lg-3 col-xl-3 col-3",
+)
+
+# Info icon
+player_stats_by_season_info = dbc.Col(
+    dbc.Row([throw_types_info2, info_icon_by_season,]),
+    style={"margin": "20px 0px 0px 0px",},
+    className="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-12",
+)
+
+# Empty column for padding
+player_stats_by_season_empty = dbc.Col(
+    className="col-sm-0 col-md-0 col-lg-1 col-xl-1 col-0",
+)
+
+# Switch to enable per-game totals instead of season totals
+player_stats_by_season_per_game_switch = dbc.Col(
+    dbc.Checklist(
+        id="player-stats-by-season-per-game-switch",
+        options=[{"label": "Per-Game", "value": "per_game"}],
+        value=["per_game"],
+        switch=True,
+    ),
+    style={"margin": "20px 0px 0px 0px"},
+    className="col-sm-12 col-md-2 col-lg-3 col-xl-3 col-12",
+)
+
+# TOOLTIPS
 throw_types_tooltip2 = dbc.Tooltip(
     [
         dcc.Markdown(
@@ -719,60 +791,12 @@ throw_types_tooltip2 = dbc.Tooltip(
     hide_arrow=True,
 )
 
-# Throw type info
-throw_types_info2 = dbc.Col(
-    html.P(
-        "Throw Types?",
-        id="throw-types-info2",
-        style={"float": "right", "text-align": "right"},
-    ),
-    style={"margin": "20px 0px 0px 0px",},
-    className="col-sm-12 col-md-2 col-lg-1 col-xl-1 col-12",
-)
-
 player_stats_by_season_info_tooltip = dbc.Tooltip(
     PLAYER_STATS_BY_SEASON_INFO_TOOLTIP,
     innerClassName="tooltip-custom",
     target="player-stats-by-season-info",
     placement="top-start",
     hide_arrow=True,
-)
-
-# Info icon
-player_stats_by_season_info = dbc.Col(
-    dbc.Row(
-        [
-            html.P(
-                "Throw Types?",
-                id="throw-types-info2",
-                style={"float": "right", "text-align": "right"},
-            ),
-            html.Img(
-                id="player-stats-by-season-info",
-                src="data:image/png;base64,{}".format(encoded_image_info.decode()),
-                style={"width": "25px", "height": "25px", "float": "right"},
-            ),
-        ]
-    ),
-    style={"margin": "20px 0px 0px 0px",},
-    className="col-sm-12 col-md-2 col-lg-1 col-xl-1 col-12",
-)
-
-# Empty column for padding
-player_stats_by_season_empty = dbc.Col(
-    className="col-sm-0 col-md-2 col-lg-5 col-xl-5 col-0",
-)
-
-# Switch to enable per-game totals instead of season totals
-player_stats_by_season_per_game_switch = dbc.Col(
-    dbc.Checklist(
-        id="player-stats-by-season-per-game-switch",
-        options=[{"label": "Per-Game", "value": "per_game"}],
-        value=["per_game"],
-        switch=True,
-    ),
-    style={"margin": "20px 0px 0px 0px"},
-    className="col-sm-12 col-md-4 col-lg-3 col-xl-3 col-12",
 )
 
 # Player stats by season table
@@ -1405,6 +1429,7 @@ app.layout = dbc.Container(
                         dbc.Row(
                             children=[
                                 player_stats_by_game_dropdown,
+                                player_stats_by_game_playoffs_dropdown,
                                 player_stats_by_game_empty,
                                 player_stats_by_game_info,
                                 player_stats_by_game_table,
@@ -1421,6 +1446,7 @@ app.layout = dbc.Container(
                         dbc.Row(
                             children=[
                                 player_stats_by_season_dropdown,
+                                player_stats_by_season_playoffs_dropdown,
                                 player_stats_by_season_per_game_switch,
                                 player_stats_by_season_empty,
                                 player_stats_by_season_info,
