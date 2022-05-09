@@ -58,6 +58,8 @@ TEAM_TOOLTIP = (
     "When Defense is selected, you will see how opposing teams did with the disc against the selected team(s)."
 )
 
+YEAR_TOOLTIP = "Filter by year to only see possessions from specific seasons."
+
 PLAYER_TOOLTIP = (
     "Filter by player to only see their possessions.\n"
     "Note that if Receiver is selected for Location, the only turnovers you see will be drops.\n"

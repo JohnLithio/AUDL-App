@@ -29,7 +29,7 @@ TICK_FONT_SIZE = 16
 TEMPLATE = pio.templates["plotly_white"]
 TEMPLATE.layout["colorway"] = tuple(COLORS)
 TEMPLATE.layout["font"] = {
-    "family": "TW Cen MT",
+    "family": "TW Cen MT, Futura",
     "color": "#003366",
 }
 

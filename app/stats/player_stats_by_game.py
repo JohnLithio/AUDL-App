@@ -20,16 +20,13 @@ def player_stats_by_game(stat_group, playoffs):
     if playoffs == "all":
         playoffs = [True, False]
 
-    df_list = []
-    for season in SEASONS:
-        df_list.append(
-            audl.Season(year=season)
-            .get_player_stats_by_game()
-            .query(f"playoffs=={playoffs}")[
-                PLAYER_GAME_STATS_INFO_COLS + PLAYER_STATS_OPTIONS_COLUMNS[stat_group]
-            ]
-        )
-    df = pd.concat(df_list, ignore_index=True)
+    df = (
+        audl.Season()
+        .get_player_stats_by_game(keep_all_years=True)
+        .query(f"playoffs=={playoffs}")[
+            PLAYER_GAME_STATS_INFO_COLS + PLAYER_STATS_OPTIONS_COLUMNS[stat_group]
+        ]
+    )
     columns = [
         {
             "name": PLAYER_STATS_COLS_DISPLAY[i],

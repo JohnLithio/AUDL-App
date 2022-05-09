@@ -3,29 +3,7 @@ import pandas as pd
 from datetime import datetime, timedelta
 
 # All available AUDL season with the requisite stats
-SEASONS = [
-    2022,
-    2021,
-]
-
-# Get all seasons of games, teams, and players
-games_list = []
-HEATMAP_TEAM_OPTIONS = []
-added_team_ids = []
-HEATMAP_PLAYER_OPTIONS = []
-added_player_ids = []
-for season in SEASONS:
-    s = audl.Season(year=season)
-    games_list.append(s.get_game_info(override=False))
-    for i, row in s.get_teams().iterrows():
-        if row["team_id"] not in added_team_ids:
-            added_team_ids.append(row["team_id"])
-            HEATMAP_TEAM_OPTIONS.append({"label": row["team_name"], "value": row["team_id"]})
-    for i, row in s.get_players().iterrows():
-        if row["player_id"] not in added_player_ids:
-            added_player_ids.append(row["player_id"])
-            HEATMAP_PLAYER_OPTIONS.append({"label": row["player_name"], "value": row["player_id"]})
-
+SEASONS = audl.YEARS
 
 GAME_FLOW_TEAM_OPTIONS = [{"label": "Any Team", "value": "any"}] + [
     {"label": row["team_name"], "value": row["team_abbrev"]}
@@ -44,7 +22,7 @@ GAME_OPTIONS = [
         "label": f"{row['away_team']} at {row['home_team']}, {row['game_date']}",
         "value": row["url"],
     }
-    for _, row in pd.concat(games_list).iterrows()
+    for _, row in audl.Season().get_game_info(keep_all_years=True).iterrows()
     if row["events_exist"]
 ]
 
@@ -86,15 +64,19 @@ HEATMAP_THROW_OPTIONS = [
     {"label": "Receiver", "value": False},
 ]
 
-# HEATMAP_TEAM_OPTIONS = [
-#     {"label": row["team_name"], "value": row["team_id"]}
-#     for i, row in audl.Season().get_teams().iterrows()
-# ]
+HEATMAP_YEAR_OPTIONS = [
+    {"label": str(x), "value": x} for x in sorted(SEASONS)
+]
 
-# HEATMAP_PLAYER_OPTIONS = [
-#     {"label": row["player_name"], "value": row["player_id"]}
-#     for i, row in audl.Season().get_players().iterrows()
-# ]
+HEATMAP_TEAM_OPTIONS = [
+    {"label": row["team_name"], "value": row["team_id"]}
+    for i, row in audl.Season().get_teams().iterrows()
+]
+
+HEATMAP_PLAYER_OPTIONS = [
+    {"label": row["player_name"], "value": row["player_id"]}
+    for i, row in audl.Season().get_players(keep_all_years=True).iterrows()
+]
 
 HEATMAP_YYARDS_MARKS = {
     -120: "120",

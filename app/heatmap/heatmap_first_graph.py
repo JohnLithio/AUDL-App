@@ -14,6 +14,7 @@ from ..server import app
         Input("heatmap-throw-dropdown", "value"),
         Input("heatmap-team-radio", "value"),
         Input("heatmap-team-dropdown", "value"),
+        Input("heatmap-year-dropdown", "value"),
         Input("heatmap-player-dropdown", "value"),
         Input("heatmap-yards-slider", "value"),
         Input("heatmap-xyards-slider", "value"),
@@ -31,6 +32,7 @@ def heatmap_first_graph(
     throw,
     team_radio,
     teams,
+    years,
     players,
     yards,
     xyards,
@@ -46,6 +48,8 @@ def heatmap_first_graph(
         o_point = None
     if teams == []:
         teams = None
+    if years == []:
+        years = None
     if players == []:
         players = None
     if team_radio == "offense":
@@ -66,6 +70,7 @@ def heatmap_first_graph(
         o_point=o_point,
         throw=throw,
         player_ids=players,
+        years=years,
         yards_min=yards[0],
         yards_max=yards[1],
         xyards_min=xyards[0],

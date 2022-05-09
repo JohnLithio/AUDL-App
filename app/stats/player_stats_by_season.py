@@ -37,14 +37,9 @@ def get_per_game_averages(df):
 def player_stats_by_season(stat_group, playoffs, per_game_switch):
     """Display player stats by season."""
     per_game = per_game_switch == ["per_game"]
-    df_list = []
-    for season in SEASONS:
-        df_list.append(
-            audl.Season(year=season).get_player_stats_by_season(playoffs=playoffs)[
-                PLAYER_SEASON_STATS_INFO_COLS + PLAYER_STATS_OPTIONS_COLUMNS[stat_group]
-            ]
-        )
-    df = pd.concat(df_list, ignore_index=True)
+    df = audl.Season().get_player_stats_by_season(playoffs=playoffs, keep_all_years=True)[
+        PLAYER_SEASON_STATS_INFO_COLS + PLAYER_STATS_OPTIONS_COLUMNS[stat_group]
+    ]
 
     if per_game:
         df = get_per_game_averages(df)

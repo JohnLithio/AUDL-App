@@ -265,6 +265,14 @@ elem_heatmap_team_tooltip = dbc.Tooltip(
     hide_arrow=True,
 )
 
+elem_heatmap_year_tooltip = dbc.Tooltip(
+    YEAR_TOOLTIP,
+    innerClassName="tooltip-custom",
+    target="heatmap-year-label",
+    placement="top-start",
+    hide_arrow=True,
+)
+
 elem_heatmap_player_tooltip = dbc.Tooltip(
     PLAYER_TOOLTIP,
     innerClassName="tooltip-custom",
@@ -428,6 +436,23 @@ elem_heatmap_team_radio = dbc.Col(
     className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
 )
 
+# Year dropdown selection for heatmap
+elem_heatmap_year_dropdown = dbc.Col(
+    [
+        html.Label("Years", id="heatmap-year-label"),
+        dcc.Dropdown(
+            id="heatmap-year-dropdown",
+            options=HEATMAP_YEAR_OPTIONS,
+            value=[],
+            multi=True,
+            clearable=True,
+            optionHeight=OPTION_HEIGHT,
+        ),
+    ],
+    style={"margin": "20px 0px 0px 0px"},
+    className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
+)
+
 # Player dropdown selection for heatmap
 elem_heatmap_player_dropdown = dbc.Col(
     [
@@ -442,7 +467,7 @@ elem_heatmap_player_dropdown = dbc.Col(
         ),
     ],
     style={"margin": "20px 0px 0px 0px"},
-    className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
+    className="col-sm-12 col-md-12 col-lg-8 col-xl-8 col-12",
 )
 
 # Min and max yards label
@@ -669,7 +694,7 @@ player_stats_by_game_table = dbc.Col(
             style_cell={
                 "background-color": "rgb(255, 255, 255)",
                 "color": "rgb(0, 51, 102)",
-                "font-family": "TW Cen MT",
+                "font-family": "TW Cen MT, Futura",
                 "border": "0px",
                 "textAlign": "right",
             },
@@ -815,7 +840,7 @@ player_stats_by_season_table = dbc.Col(
             style_cell={
                 "background-color": "rgb(255, 255, 255)",
                 "color": "rgb(0, 51, 102)",
-                "font-family": "TW Cen MT",
+                "font-family": "TW Cen MT, Futura",
                 "border": "0px",
                 "textAlign": "right",
             },
@@ -1373,6 +1398,7 @@ app.layout = dbc.Container(
                                             elem_heatmap_opoint_dropdown,
                                             elem_heatmap_team_dropdown,
                                             elem_heatmap_team_radio,
+                                            elem_heatmap_year_dropdown,
                                             elem_heatmap_player_dropdown,
                                             elem_heatmap_yards_slider_label,
                                             elem_heatmap_yards_slider,
@@ -1392,6 +1418,7 @@ app.layout = dbc.Container(
                                             elem_heatmap_throw_tooltip,
                                             elem_heatmap_opoint_tooltip,
                                             elem_heatmap_team_tooltip,
+                                            elem_heatmap_year_tooltip,
                                             elem_heatmap_player_tooltip,
                                             elem_heatmap_yards_tooltip,
                                             elem_heatmap_yyards_tooltip,
