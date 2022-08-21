@@ -5,6 +5,7 @@ See the app at https://audl-stats-explorer.herokuapp.com/
 TODO:
 
 * Create script that creates all of the files needed for the app
+* Set up daily data refresh with Google Cloud
 
 ## How to Run App Locally
 
