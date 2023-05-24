@@ -22,6 +22,7 @@ These steps outline the process for pushing an updated app to Heroku.
 1. Make sure the requirements file is updated with the latest commit of the [audl-advanced-stats](https://github.com/JohnLithio/AUDL-Advanced-Stats) module.
 1. Push the changes to Github and the changes will automatically deploy to Heroku. If this does not work, use the following steps.
 1. `git push heroku main`
+1. If you are prompted to login, you can do so using `heroku login`.
 1. If there's an error, you can view the logs with `heroku logs --tail`
 1. If the app is not currently running, `heroku ps:scale web=1`
 1. To open it up, `heroku open` or go to https://audl-stats-explorer.herokuapp.com/
