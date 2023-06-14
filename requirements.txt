@@ -20,4 +20,4 @@ scikit-learn>=0.22.1
 seaborn>=0.11.2
 yellowbrick>=1.4.0
 https://github.com/pallets/werkzeug/archive/refs/tags/2.0.1.tar.gz
-git+https://github.com/JohnLithio/AUDL-Advanced-Stats.git@fd68060d4cb573ec720207b3130a2867045ad8ab
+git+https://github.com/JohnLithio/AUDL-Advanced-Stats.git@7e922a1aa72bd5bb917efaecb1b017335985dd9c

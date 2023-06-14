@@ -64,9 +64,7 @@ HEATMAP_THROW_OPTIONS = [
     {"label": "Receiver", "value": False},
 ]
 
-HEATMAP_YEAR_OPTIONS = [
-    {"label": str(x), "value": x} for x in sorted(SEASONS)
-]
+HEATMAP_YEAR_OPTIONS = [{"label": str(x), "value": x} for x in sorted(SEASONS)]
 
 HEATMAP_TEAM_OPTIONS = [
     {"label": row["team_name"], "value": row["team_id"]}
@@ -267,6 +265,7 @@ PLAYER_STATS_COLS_DISPLAY = {
     "xyards_throwaway": "T Yds X",
     "yyards_throwaway": "T Yds Y",
     "yards_throwaway": "T Yds X&Y",
+    "throws_team_pct": "THR USG",
     "completions_team_pct": "CMP USG",
     "throwaways_team_pct": "T USG",
     "assists_team_pct": "AST USG",
@@ -319,6 +318,8 @@ PLAYER_STATS_COLS_DISPLAY = {
     "yards": "Tot Yds X&Y No Ctr",
     "completion_pct": "CMP%",
     "reception_pct": "REC%",
+    "completions_pp": "CMP PP",
+    "throws_pp": "THR PP",
     "turnovers_pp": "TO PP",
     "xyards_throwing_pp": "Yds Thr X PP",
     "yyards_throwing_pp": "Yds Thr Y PP",
@@ -418,6 +419,7 @@ PLAYER_STATS_OPTIONS_COLUMNS = {
         "total_possessions",
         "o_possessions",
         "d_possessions",
+        "throws_team_pct",
         "completions_team_pct",
         "throwaways_team_pct",
         "assists_team_pct",
@@ -529,6 +531,8 @@ PLAYER_STATS_OPTIONS_COLUMNS = {
     "per_possession": [
         "o_possessions",
         "d_possessions",
+        "completions_pp",
+        "throws_pp",
         "goals_pp",
         "assists_pp",
         "throwaways_pp",
