@@ -161,7 +161,11 @@ elem_heatmap_click_store = dbc.Col(
 # Data store to indicate if 2nd heatmap is filtered
 elem_heatmap_filtered_store = dbc.Col(
     dcc.Store(
-        id="heatmap-filtered-store", data={"filtered": False,}, storage_type="session",
+        id="heatmap-filtered-store",
+        data={
+            "filtered": False,
+        },
+        storage_type="session",
     )
 )
 
@@ -171,7 +175,10 @@ elem_game_flow_score_graph = dbc.Col(
         dcc.Graph(
             id="game-flow-score-graph",
             config={
-                "toImageButtonOptions": {"format": "png", "filename": "audl_subs",},
+                "toImageButtonOptions": {
+                    "format": "png",
+                    "filename": "audl_subs",
+                },
                 "displaylogo": False,
                 "displayModeBar": False,
             },
@@ -187,7 +194,10 @@ elem_game_flow_substitutions_graph = dbc.Col(
         dcc.Graph(
             id="game-flow-substitutions-graph",
             config={
-                "toImageButtonOptions": {"format": "png", "filename": "audl_subs",},
+                "toImageButtonOptions": {
+                    "format": "png",
+                    "filename": "audl_subs",
+                },
                 "displaylogo": False,
                 "displayModeBar": False,
             },
@@ -400,7 +410,9 @@ elem_heatmap_opoint_dropdown = dbc.Col(
 )
 
 # Empty column for padding
-elem_empty = dbc.Col(className="col-xl-4 col-0",)
+elem_empty = dbc.Col(
+    className="col-xl-4 col-0",
+)
 
 # Team dropdown selection for heatmap
 elem_heatmap_team_dropdown = dbc.Col(
@@ -430,6 +442,42 @@ elem_heatmap_team_radio = dbc.Col(
             ],
             value="offense",
             inline=True,
+        ),
+    ],
+    style={"margin": "20px 0px 0px 0px", "padding": "20px 20px 0px 0px"},
+    className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
+)
+
+# Selection for only looking at pulls
+elem_heatmap_pulls_only = dbc.Col(
+    [
+        dbc.RadioItems(
+            id="heatmap-pulls-only",
+            options=[
+                {"label": "Non-Pulls", "value": False},
+                {"label": "Pulls Only", "value": True},
+            ],
+            value=False,
+            inline=True,
+        ),
+    ],
+    style={"margin": "20px 0px 0px 0px", "padding": "20px 20px 0px 0px"},
+    className="col-sm-12 col-md-12 col-lg-4 col-xl-4 col-12",
+)
+
+# Selection for in-bounds vs out-of-bounds pulls
+elem_heatmap_pull_inbounds_dropdown = dbc.Col(
+    [
+        dcc.Dropdown(
+            id="heatmap-pull-inbounds-dropdown",
+            options=[
+                {"label": "All Pulls", "value": "[3,4]"},
+                {"label": "In-Bounds Only", "value": "3"},
+                {"label": "Out-of-Bounds Only", "value": "4"},
+            ],
+            value="[3,4]",
+            multi=False,
+            optionHeight=OPTION_HEIGHT,
         ),
     ],
     style={"margin": "20px 0px 0px 0px", "padding": "20px 20px 0px 0px"},
@@ -561,7 +609,10 @@ elem_heatmap_z_slider = dbc.Col(
 
 # Heatmap description
 elem_heatmap_description = dbc.Col(
-    html.P(id="heatmap-description", children="Test text",),
+    html.P(
+        id="heatmap-description",
+        children="Test text",
+    ),
     className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
 )
 
@@ -570,7 +621,10 @@ elem_heatmap_first_graph = dbc.Col(
     [
         dcc.Graph(
             id="heatmap-first-graph",
-            config={"displaylogo": False, "displayModeBar": False,},
+            config={
+                "displaylogo": False,
+                "displayModeBar": False,
+            },
             style={"aspect-ratio": "1 / 2", "max-height": "750px", "margin": "0 auto"},
         ),
     ],
@@ -582,7 +636,10 @@ elem_heatmap_second_graph = dbc.Col(
     [
         dcc.Graph(
             id="heatmap-second-graph",
-            config={"displaylogo": False, "displayModeBar": False,},
+            config={
+                "displaylogo": False,
+                "displayModeBar": False,
+            },
             style={"aspect-ratio": "1 / 2", "max-height": "750px", "margin": "0 auto"},
         ),
     ],
@@ -645,7 +702,9 @@ info_icon_by_game = dbc.Col(
 # Info icon
 player_stats_by_game_info = dbc.Col(
     dbc.Row([throw_types_info, info_icon_by_game]),
-    style={"margin": "20px 0px 0px 0px",},
+    style={
+        "margin": "20px 0px 0px 0px",
+    },
     className="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-12",
 )
 
@@ -660,7 +719,9 @@ throw_types_tooltip = dbc.Tooltip(
         dcc.Markdown(
             "See the below image for my arbitrary definitions of throw types:\n\n"
         ),
-        html.Img(src="data:image/png;base64,{}".format(encoded_image_throws.decode()),),
+        html.Img(
+            src="data:image/png;base64,{}".format(encoded_image_throws.decode()),
+        ),
     ],
     innerClassName="tooltip-custom",
     target="throw-types-info",
@@ -686,10 +747,22 @@ player_stats_by_game_table = dbc.Col(
             filter_action="native",
             sort_as_null=["N/A"],
             style_cell_conditional=[
-                {"if": {"column_id": "name"}, "textAlign": "left",},
-                {"if": {"column_id": "team"}, "textAlign": "left",},
-                {"if": {"column_id": "opponent"}, "textAlign": "left",},
-                {"if": {"column_id": "game_date"}, "textAlign": "left",},
+                {
+                    "if": {"column_id": "name"},
+                    "textAlign": "left",
+                },
+                {
+                    "if": {"column_id": "team"},
+                    "textAlign": "left",
+                },
+                {
+                    "if": {"column_id": "opponent"},
+                    "textAlign": "left",
+                },
+                {
+                    "if": {"column_id": "game_date"},
+                    "textAlign": "left",
+                },
             ],
             style_cell={
                 "background-color": "rgb(255, 255, 255)",
@@ -780,8 +853,15 @@ info_icon_by_season = dbc.Col(
 
 # Info icon
 player_stats_by_season_info = dbc.Col(
-    dbc.Row([throw_types_info2, info_icon_by_season,]),
-    style={"margin": "20px 0px 0px 0px",},
+    dbc.Row(
+        [
+            throw_types_info2,
+            info_icon_by_season,
+        ]
+    ),
+    style={
+        "margin": "20px 0px 0px 0px",
+    },
     className="col-sm-12 col-md-2 col-lg-2 col-xl-2 col-12",
 )
 
@@ -808,7 +888,9 @@ throw_types_tooltip2 = dbc.Tooltip(
         dcc.Markdown(
             "See the below image for my arbitrary definitions of throw types:\n\n"
         ),
-        html.Img(src="data:image/png;base64,{}".format(encoded_image_throws.decode()),),
+        html.Img(
+            src="data:image/png;base64,{}".format(encoded_image_throws.decode()),
+        ),
     ],
     innerClassName="tooltip-custom",
     target="throw-types-info2",
@@ -834,8 +916,14 @@ player_stats_by_season_table = dbc.Col(
             filter_action="native",
             sort_as_null=["N/A"],
             style_cell_conditional=[
-                {"if": {"column_id": "name"}, "textAlign": "left",},
-                {"if": {"column_id": "team"}, "textAlign": "left",},
+                {
+                    "if": {"column_id": "name"},
+                    "textAlign": "left",
+                },
+                {
+                    "if": {"column_id": "team"},
+                    "textAlign": "left",
+                },
             ],
             style_cell={
                 "background-color": "rgb(255, 255, 255)",
@@ -957,7 +1045,10 @@ elem_time_per_pass_tooltip = dbc.Tooltip(
 ## Probability calcs
 # End of period title
 elem_end_of_period_title = dbc.Col(
-    html.H2(id="end-of-period-title", children="End of Period Strategy",),
+    html.H2(
+        id="end-of-period-title",
+        children="End of Period Strategy",
+    ),
     className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
     style={"margin": "20px 0px 0px 0px"},
 )
@@ -983,14 +1074,23 @@ elem_end_of_period_instructions = dbc.Col(
 )
 
 elem_end_of_period_description = dbc.Col(
-    html.P(id="end-of-period-description", children="Test text",),
+    html.P(
+        id="end-of-period-description",
+        children="Test text",
+    ),
     className="col-sm-12 col-md-12 col-lg-12 col-xl-12 col-12",
     style={"margin": "20px 0px 0px 0px"},
 )
 
-pct_sign = html.P("%", className="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-1",)
+pct_sign = html.P(
+    "%",
+    className="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-1",
+)
 
-seconds_label = html.P("sec", className="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-1",)
+seconds_label = html.P(
+    "sec",
+    className="col-sm-1 col-md-1 col-lg-1 col-xl-1 col-1",
+)
 
 # Time threshold when we start trying to score
 elem_time_to_score = dbc.Col(
@@ -1273,7 +1373,11 @@ elem_end_of_period_period_dropdown = dbc.Col(
                 {"label": "4", "value": 4},
                 {"label": "OT1", "value": 5},
             ],
-            value=[1, 2, 3,],
+            value=[
+                1,
+                2,
+                3,
+            ],
             multi=True,
             clearable=True,
             optionHeight=OPTION_HEIGHT,
@@ -1305,7 +1409,10 @@ elem_end_of_period_time_graph = dbc.Col(
     [
         dcc.Graph(
             id="end-of-period-time-graph",
-            config={"displaylogo": False, "displayModeBar": False,},
+            config={
+                "displaylogo": False,
+                "displayModeBar": False,
+            },
             # style={"aspect-ratio": "1 / 2", "max-height": "750px", "margin": "0 auto"},
         ),
     ],
@@ -1342,7 +1449,9 @@ app.layout = dbc.Container(
                                             style={"padding": "20px 0px 20px 0px"},
                                         ),
                                         dbc.Row(
-                                            [elem_game_flow_score_graph,],
+                                            [
+                                                elem_game_flow_score_graph,
+                                            ],
                                             justify="center",
                                             align="center",
                                             style={
@@ -1351,7 +1460,9 @@ app.layout = dbc.Container(
                                             },
                                         ),
                                         dbc.Row(
-                                            [elem_game_flow_substitutions_graph,],
+                                            [
+                                                elem_game_flow_substitutions_graph,
+                                            ],
                                             justify="center",
                                             align="center",
                                             style={"margin-top": 0, "padding-top": 0},
@@ -1371,7 +1482,9 @@ app.layout = dbc.Container(
                                             style={"padding": "20px 0px 20px 0px"},
                                         ),
                                         dbc.Row(
-                                            [elem_possession_map_graph,],
+                                            [
+                                                elem_possession_map_graph,
+                                            ],
                                             justify="center",
                                             align="center",
                                         ),
@@ -1398,6 +1511,8 @@ app.layout = dbc.Container(
                                             elem_heatmap_opoint_dropdown,
                                             elem_heatmap_team_dropdown,
                                             elem_heatmap_team_radio,
+                                            elem_heatmap_pulls_only,
+                                            elem_heatmap_pull_inbounds_dropdown,
                                             elem_heatmap_year_dropdown,
                                             elem_heatmap_player_dropdown,
                                             elem_heatmap_yards_slider_label,
@@ -1504,7 +1619,11 @@ app.layout = dbc.Container(
                                 dbc.Col(
                                     [
                                         dbc.Row([elem_end_of_period_title]),
-                                        dbc.Row([elem_end_of_period_instructions,]),
+                                        dbc.Row(
+                                            [
+                                                elem_end_of_period_instructions,
+                                            ]
+                                        ),
                                         dbc.Row(
                                             [
                                                 elem_time_at_midfield,

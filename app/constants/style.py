@@ -7,7 +7,7 @@ from .options import *
 
 # App info
 VERSION = "0.1.2"
-APP_NAME = "AUDL Stats Explorer"
+APP_NAME = "UFA Stats Explorer"
 
 # Theme/style settings
 COLORS = [
