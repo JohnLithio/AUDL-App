@@ -13,6 +13,8 @@ from ..server import app
         Input("heatmap-metric-dropdown", "value"),
         Input("heatmap-throw-dropdown", "value"),
         Input("heatmap-team-radio", "value"),
+        Input("heatmap-pulls-only", "value"),
+        Input("heatmap-pull-inbounds-dropdown", "value"),
         Input("heatmap-team-dropdown", "value"),
         Input("heatmap-player-dropdown", "value"),
         Input("heatmap-yards-slider", "value"),
@@ -30,6 +32,8 @@ def heatmap_second_graph(
     metric,
     throw,
     team_radio,
+    pull_only,
+    pull_types,
     teams,
     players,
     yards,
@@ -85,6 +89,8 @@ def heatmap_second_graph(
         # Square where the throw went if throw=True
         x_cut=x_cut,
         y_cut=y_cut,
+        pull_only=pull_only,
+        pull_types=pull_types,
         second_graph=True,
         **team_ids,
     )

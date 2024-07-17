@@ -13,6 +13,8 @@ from ..server import app
         Input("heatmap-metric-dropdown", "value"),
         Input("heatmap-throw-dropdown", "value"),
         Input("heatmap-team-radio", "value"),
+        Input("heatmap-pulls-only", "value"),
+        Input("heatmap-pull-inbounds-dropdown", "value"),
         Input("heatmap-team-dropdown", "value"),
         Input("heatmap-year-dropdown", "value"),
         Input("heatmap-player-dropdown", "value"),
@@ -31,6 +33,8 @@ def heatmap_first_graph(
     metric,
     throw,
     team_radio,
+    pull_only,
+    pull_types,
     teams,
     years,
     players,
@@ -79,6 +83,8 @@ def heatmap_first_graph(
         yyards_max=yyards[1],
         zmin=zmin,
         zmax=zmax,
+        pull_only=pull_only,
+        pull_types=pull_types,
         **team_ids,
     )
 
